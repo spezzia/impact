@@ -1,0 +1,56 @@
+{
+    "anims": [
+        {
+            "key": "carga",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 2,
+            "frames": [
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_0"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_1"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_2"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_3"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_4"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_5"
+                }
+            ]
+        },
+        {
+            "key": "disparo",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 2,
+            "frames": [
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_6"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_7"
+                },
+                {
+                    "key": "nave",
+                    "frame": "new_piskel_(1)_0"
+                }
+            ]
+        }
+    ]
+}

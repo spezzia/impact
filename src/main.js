@@ -5,8 +5,15 @@ const config = {
     url: "http://google.es", //Dirección de la página del juego (opcional)
     version: "0.0.1",   //Versión alfanumérica (opcional)
     type: Phaser.AUTO,  //Tipo de renderizado (WEBGL, CANVAS, AUTO)// AUTO: busca primero WEBGL y si no está disponible//eligirá CANVAS
-    width: 1000, //Ancho de pantalla del juego
+    width: 1250, //Ancho de pantalla del juego
     height: 500,    //Alto de pantalla del juego
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: 0,
+            debug: false
+        }
+    },
     parent: "contenedor",   //Nombre del id del elemento <div> enel index.html// se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: false, //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#34495e", //Color de fondo del canvas ()
