@@ -1,12 +1,12 @@
 {
     "frames": [
         {
-            "filename": "ne-1_0",
+            "filename": "nave_enemiga_0",
             "frame": {
                 "x": 0,
                 "y": 0,
-                "w": 32,
-                "h": 32
+                "w": 124,
+                "h": 124
             },
             "anchor": {
                 "x": 0.5,
@@ -14,12 +14,12 @@
             }
         },
         {
-            "filename": "ne-1_1",
+            "filename": "nave_enemiga_1",
             "frame": {
-                "x": 32,
+                "x": 124,
                 "y": 0,
-                "w": 32,
-                "h": 32
+                "w": 124,
+                "h": 124
             },
             "anchor": {
                 "x": 0.5,
@@ -27,12 +27,12 @@
             }
         },
         {
-            "filename": "ne-1_2",
+            "filename": "nave_enemiga_2",
             "frame": {
-                "x": 0,
-                "y": 32,
-                "w": 32,
-                "h": 32
+                "x": 248,
+                "y": 0,
+                "w": 124,
+                "h": 124
             },
             "anchor": {
                 "x": 0.5,
@@ -40,12 +40,38 @@
             }
         },
         {
-            "filename": "ne-1_3",
+            "filename": "nave_enemiga_3",
             "frame": {
-                "x": 32,
-                "y": 32,
-                "w": 32,
-                "h": 32
+                "x": 372,
+                "y": 0,
+                "w": 124,
+                "h": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "nave_enemiga_4",
+            "frame": {
+                "x": 496,
+                "y": 0,
+                "w": 124,
+                "h": 124
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "nave_enemiga_5",
+            "frame": {
+                "x": 620,
+                "y": 0,
+                "w": 124,
+                "h": 124
             },
             "anchor": {
                 "x": 0.5,

@@ -43,10 +43,10 @@ class Bootloader extends Phaser.Scene{
         this.nombre.setOrigin(.5,0);
 
 
-        this.enemigo1 = this.physics.add.sprite(800,200,'enemigo1').setScale(3);
-        this.enemigo1.anims.play('ene_disparar');
+        this.enemigo1 = this.physics.add.sprite(800,200,'enemigo1').setScale(1);
+        this.enemigo1.anims.play('disparar');
         this.enemigo1.on('animationcomplete',()=>{
-            this.municion = this.add.image(800-25,200+18,'municion').setScale(.1); 
+            this.municion = this.add.image(this.enemigo1.x-60,this.enemigo1.y,'municion').setScale(.1); 
             this.timeline = this.tweens.createTimeline();
             this.timeline.add({
                 targets: [this.municion],
@@ -54,17 +54,9 @@ class Bootloader extends Phaser.Scene{
                 duration: 5000,
             });
             this.timeline.play();
-            this.municion = this.add.image(800-25,200-28,'municion').setScale(.1); 
-            this.timeline = this.tweens.createTimeline();
-            this.timeline.add({
-                targets: [this.municion],
-                x: -10,
-                duration: 5000,
-            });
-            this.timeline.play();
-            this.enemigo1.anims.play('ene_disparar');
-
-
+            this.enemigo1.anims.play('disparar');
+            console.log("Hola");
+            
         },this);
 
         this.nave = this.physics.add.sprite(100, 200, 'nave').setScale(1.2);
@@ -124,9 +116,9 @@ class Bootloader extends Phaser.Scene{
                 this.timeline = this.tweens.createTimeline();
                 this.timeline.add({
                     targets: [ano],
-                    x: 1250,
+                    x:5000,
                     rotation: 35 * Math.PI,
-                    duration: 5000,
+                    duration: 10000,
                 });
                 this.timeline.play();
                 
@@ -136,12 +128,11 @@ class Bootloader extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.palatano, this.enemigo1,function(enemigo,platano){
-            //console.log(ano);
+            //console.log(enemigo);
             platano.destroy();
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
-
     }
     update(time,delta)
     {

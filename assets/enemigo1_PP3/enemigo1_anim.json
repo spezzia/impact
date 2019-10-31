@@ -1,22 +1,30 @@
 {
     "anims": [
         {
-            "key": "ene_disparar",
+            "key": "disparar",
             "type": "frames",
             "repeat": 0,
-            "frameRate": 5,
+            "frameRate": 6,
             "frames": [
                 {
                     "key": "enemigo1",
-                    "frame": "ne-1_0"
+                    "frame": "nave_enemiga_0"
                 },
                 {
                     "key": "enemigo1",
-                    "frame": "ne-1_1"
+                    "frame": "nave_enemiga_1"
                 },
                 {
                     "key": "enemigo1",
-                    "frame": "ne-1_2"
+                    "frame": "nave_enemiga_2"
+                },
+                {
+                    "key": "enemigo1",
+                    "frame": "nave_enemiga_3"
+                },
+                {
+                    "key": "enemigo1",
+                    "frame": "nave_enemiga_4"
                 }
             ]
         }
