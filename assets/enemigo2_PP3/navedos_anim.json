@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "disparo",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 2,
+            "frames": [
+                {
+                    "key": "navedos",
+                    "frame": "navebasica_clone_0"
+                },
+                {
+                    "key": "navedos",
+                    "frame": "navebasica_clone_1"
+                },
+                {
+                    "key": "navedos",
+                    "frame": "navebasica_clone_2"
+                },
+                {
+                    "key": "navedos",
+                    "frame": "navebasica_clone_3"
+                }
+            ]
+        }
+    ]
+}

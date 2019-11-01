@@ -1,0 +1,60 @@
+{
+    "frames": [
+        {
+            "filename": "navebasica_clone_0",
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 300,
+                "h": 299
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "navebasica_clone_1",
+            "frame": {
+                "x": 300,
+                "y": 0,
+                "w": 300,
+                "h": 299
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "navebasica_clone_2",
+            "frame": {
+                "x": 600,
+                "y": 0,
+                "w": 300,
+                "h": 299
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "navebasica_clone_3",
+            "frame": {
+                "x": 900,
+                "y": 0,
+                "w": 300,
+                "h": 299
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
