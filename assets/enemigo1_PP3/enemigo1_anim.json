@@ -1,10 +1,10 @@
 {
     "anims": [
         {
-            "key": "disparar",
+            "key": "disparare1",
             "type": "frames",
             "repeat": 0,
-            "frameRate": 6,
+            "frameRate": 8,
             "frames": [
                 {
                     "key": "enemigo1",
@@ -21,10 +21,6 @@
                 {
                     "key": "enemigo1",
                     "frame": "nave_enemiga_3"
-                },
-                {
-                    "key": "enemigo1",
-                    "frame": "nave_enemiga_4"
                 }
             ]
         }

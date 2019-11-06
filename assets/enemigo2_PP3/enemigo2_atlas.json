@@ -1,12 +1,12 @@
 {
     "frames": [
         {
-            "filename": "navebasica_clone_0",
+            "filename": "navebasica_clone_(7)_0",
             "frame": {
                 "x": 0,
                 "y": 0,
-                "w": 300,
-                "h": 299
+                "w": 200,
+                "h": 200
             },
             "anchor": {
                 "x": 0.5,
@@ -14,12 +14,12 @@
             }
         },
         {
-            "filename": "navebasica_clone_1",
+            "filename": "navebasica_clone_(7)_1",
             "frame": {
-                "x": 300,
+                "x": 200,
                 "y": 0,
-                "w": 300,
-                "h": 299
+                "w": 200,
+                "h": 200
             },
             "anchor": {
                 "x": 0.5,
@@ -27,12 +27,12 @@
             }
         },
         {
-            "filename": "navebasica_clone_2",
+            "filename": "navebasica_clone_(7)_2",
             "frame": {
-                "x": 600,
-                "y": 0,
-                "w": 300,
-                "h": 299
+                "x": 0,
+                "y": 200,
+                "w": 200,
+                "h": 200
             },
             "anchor": {
                 "x": 0.5,
@@ -40,12 +40,12 @@
             }
         },
         {
-            "filename": "navebasica_clone_3",
+            "filename": "navebasica_clone_(7)_3",
             "frame": {
-                "x": 900,
-                "y": 0,
-                "w": 300,
-                "h": 299
+                "x": 200,
+                "y": 200,
+                "w": 200,
+                "h": 200
             },
             "anchor": {
                 "x": 0.5,

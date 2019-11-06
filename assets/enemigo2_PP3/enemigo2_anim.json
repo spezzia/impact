@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "disparare2",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 2,
+            "frames": [
+                {
+                    "key": "enemigo2",
+                    "frame": "navebasica_clone_(7)_0"
+                },
+                {
+                    "key": "enemigo2",
+                    "frame": "navebasica_clone_(7)_1"
+                },
+                {
+                    "key": "enemigo2",
+                    "frame": "navebasica_clone_(7)_2"
+                },
+                {
+                    "key": "enemigo2",
+                    "frame": "navebasica_clone_(7)_3"
+                }
+            ]
+        }
+    ]
+}
