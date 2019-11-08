@@ -24,6 +24,9 @@ class Bootloader extends Phaser.Scene{
         this.load.image('platano','platano.png');
         this.load.image('municion','MunicionNE1.png');
         this.load.image('sandia','sandia.png');
+        this.load.image('calabaza', 'Calabaza.png');
+        this.load.image('papaya', 'Papaya.png');
+        this.load.image('selector', 'selector.png');
         this.load.atlas('enemigo2', 'enemigo2_PP3/enemigo2.png','enemigo2_PP3/enemigo2_atlas.json');
         this.load.animation('enemigoo1', 'enemigo2_PP3/enemigo2_anim.json');
         this.load.image('vida','barra_vida/barra_vida00.png');
@@ -48,6 +51,11 @@ class Bootloader extends Phaser.Scene{
         this.masvida = this.physics.add.sprite(625,0,'+vida').setScale(.7);
         this.masvida.body.setGravityY(30);
         this.masvida.body.setGravityX(10);
+
+        this.sandiaselec = this.add.image(10, 420, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
+        this.calabazaselec = this.add.image(80, 420, 'calabaza').setOrigin(0).setScale(1.2);
+        this.papayaselec = this.add.image(150, 410, 'papaya').setOrigin(0).setScale(1.2);
+        this.selector = this.add.image(47, 480, 'selector').setScale(1.6);
        
         this.enemigo1 = this.physics.add.sprite(800,200,'enemigo2').setScale(.35).setFlipX(1);
         this.enemigo1.anims.play('disparare2');
@@ -75,7 +83,7 @@ class Bootloader extends Phaser.Scene{
                 this.nave.anims.play('disparo');
                 var sandi  = this.palatano.create(this.nave.x+45,this.nave.y-28,'sandia').setScale(.5).setFlipX(1); 
                 sandi.setBounce(0.2);
-                sandi.setCollideWorldBounds(true);
+                sandi.setCollideWorldBounds(false);
                 this.timelinesandi = this.tweens.createTimeline();
                 this.timelinesandi.add({
                     targets: [sandi],
