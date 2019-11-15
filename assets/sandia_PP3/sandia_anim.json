@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "destruccion",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "sandia",
+                    "frame": "sandia_0"
+                },
+                {
+                    "key": "sandia",
+                    "frame": "sandia_1"
+                },
+                {
+                    "key": "sandia",
+                    "frame": "sandia_2"
+                },
+                {
+                    "key": "sandia",
+                    "frame": "sandia_3"
+                }
+            ]
+        }
+    ]
+}

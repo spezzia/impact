@@ -1,0 +1,36 @@
+{
+    "anims": [
+        {
+            "key": "vuelo",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_0"
+                },
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_1"
+                },
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_0"
+                },
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_1"
+                },
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_4"
+                },
+                {
+                    "key": "nav",
+                    "frame": "nda_(1)_5"
+                }
+            ]
+        }
+    ]
+}

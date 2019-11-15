@@ -1,0 +1,48 @@
+{
+    "anims": [
+        {
+            "key": "carga",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 3,
+            "frames": [
+                {
+                    "key": "canion",
+                    "frame": "canon_1"
+                },
+                {
+                    "key": "canion",
+                    "frame": "canon_2"
+                },
+                {
+                    "key": "canion",
+                    "frame": "canon_3"
+                },
+                {
+                    "key": "canion",
+                    "frame": "canon_4"
+                },
+                {
+                    "key": "canion",
+                    "frame": "canon_5"
+                }
+            ]
+        },
+        {
+            "key": "disparo",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 2,
+            "frames": [
+                {
+                    "key": "canion",
+                    "frame": "canon_6"
+                },
+                {
+                    "key": "canion",
+                    "frame": "canon_7"
+                }
+            ]
+        }
+    ]
+}

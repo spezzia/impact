@@ -11,7 +11,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: 0,
-            debug: false
+            debug: true
         }
     },
     parent: "contenedor",   //Nombre del id del elemento <div> enel index.html// se refiere a dónde se pondrá el canvas o lienzo
