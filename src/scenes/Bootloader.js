@@ -57,28 +57,16 @@ class Bootloader extends Phaser.Scene{
         this.masvida.body.setGravityY(30);
         this.masvida.body.setGravityX(10);
 
+<<<<<<< HEAD
         this.sandiaselec = this.add.image(10, 420, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
         this.calabazaselec = this.add.image(80, 420, 'calabaza').setOrigin(0).setScale(1.2);
         this.papayaselec = this.add.image(150, 410, 'papaya').setOrigin(0).setScale(1.2);
         this.selector = this.add.image(47, 480, 'selector').setScale(1.6);
+=======
+        
+>>>>>>> 4d3719e3687c4aacd44083bbcb00074df15d0547
 
         this.municion =  this.physics.add.group();
-       
-        this.enemigo1 = this.physics.add.sprite(800,200,'enemigo2').setScale(.35).setFlipX(1);
-        this.enemigo1.anims.play('disparare2');
-        this.enemigo1.on('animationcomplete',()=>{
-            var mun = this.municion.create(this.enemigo1.x-60,this.enemigo1.y,'municion').setScale(.1); 
-            this.timeline = this.tweens.createTimeline();
-            this.timeline.add({
-                targets: [mun],
-                x: -10,
-                duration: 5000,
-            });
-            this.timeline.play();
-            this.enemigo1.anims.play('disparare2');
-            console.log("Hola");
-            
-        },this);
 
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
@@ -119,8 +107,28 @@ class Bootloader extends Phaser.Scene{
                 });
                 this.timelinesandi.play();
                 //this.disparo = !this.disparo;  
-        });
+        });            
+
     },this);
+
+        this.contenedor2 = this.add.container(10,420);
+
+        this.sandiaselec = this.add.image(0, 0, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
+        this.calabazaselec = this.add.image(60, 0, 'calabaza').setOrigin(0).setScale(1.2);
+        this.papayaselec = this.add.image(120, 0, 'papaya').setOrigin(0).setScale(1.2);
+        this.selector = this.add.image(35, 65, 'selector').setScale(1.6);
+
+        this.teclaA = this.input.keyboard.addKey(keyCodes.A);
+        this.teclaD = this.input.keyboard.addKey(keyCodes.D);
+        this.teclaS = this.input.keyboard.addKey(keyCodes.S);
+
+        this.contenedor2.add([
+            this.sandiaselec,
+            this.calabazaselec,
+            this.papayaselec,
+            this.selector,
+        ]);
+        
 
          this.canion.on('animationcomplete-disparo', ()=>{
             this.flechas.space.destroy();
@@ -162,15 +170,43 @@ class Bootloader extends Phaser.Scene{
         {
             this.timer.paused = true;
         })
+
+         //Creación de grupo de naves enemigas
+         this.grupo=this.physics.add.group({
+            key: 'enemigo2',
+            repeat: 4,
+            setXY:{
+               x:1200,
+               y: 50,
+               stepY: 100
+            }             
+        });
+        this.grupo.children.iterate( (enemigo1) => {
+            enemigo1.setScale(.35).setFlipX(1);
+            enemigo1.anims.play('disparare2');
+            enemigo1.on('animationcomplete',()=>{
+               var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+               this.timeline = this.tweens.createTimeline();
+               this.timeline.add({
+                   targets: [mun],
+                   x: -10,
+                   duration: 5000,
+               });
+               this.timeline.play();
+               enemigo1.anims.play('disparare2');
+               console.log("Hola");
+               
+           },this);
+        });
         
-        this.physics.add.collider(this.palatano, this.enemigo1,(enemigo,platano) =>{
+        this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
             //console.log(enemigo);
             platano.destroy();
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
 
-        this.physics.add.collider(this.sandia, this.enemigo1,(enemigo,sandia)=>{
+        this.physics.add.collider(this.sandia, this.grupo,(sandia, enemigo)=>{
             sandia.anims.play('destruccion',true);
             sandia.on('animationcomplete-destruccion', ()=>{
                sandia.destroy();
@@ -186,6 +222,14 @@ class Bootloader extends Phaser.Scene{
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
+
+         this.add.tween({
+             targets: this.grupo.getChildren(),
+             x: 600,
+            duration: 2000,
+            easy: 'Bounce'
+         })
+
 
     }
     update(time,delta)
@@ -218,7 +262,20 @@ class Bootloader extends Phaser.Scene{
                 this.canion.y -= 4; */
                 this.container.y -= 4;
             }
-        }  
+        }
+        
+        if( Phaser.Input.Keyboard.JustDown(this.teclaA) ){
+            console.log('Haz presionado la tecla A');
+            this.selector.x= 35;
+        }
+        if( Phaser.Input.Keyboard.JustDown(this.teclaS) ){
+            console.log('Haz presionado la tecla S');
+            this.selector.x= 100;
+        }
+        if( Phaser.Input.Keyboard.JustDown(this.teclaD) ){
+            console.log('Haz presionado la tecla D');
+            this.selector.x= 160;
+        }
     }
     
 }
