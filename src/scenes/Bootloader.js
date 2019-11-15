@@ -227,7 +227,7 @@ class Bootloader extends Phaser.Scene{
     update(time,delta)
     {
         if( this.flechas.left.isDown ){
-            if(this.container.x - 4 >= 0) 
+            if(this.container.x - 4 > 0) 
             {
                 this.container.x -= 4;
             }
