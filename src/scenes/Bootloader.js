@@ -57,13 +57,21 @@ class Bootloader extends Phaser.Scene{
         this.masvida.body.setGravityY(30);
         this.masvida.body.setGravityX(10);
 
+<<<<<<< HEAD
+        this.sandiaselec = this.add.image(10, 420, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
+        this.calabazaselec = this.add.image(80, 420, 'calabaza').setOrigin(0).setScale(1.2);
+        this.papayaselec = this.add.image(150, 410, 'papaya').setOrigin(0).setScale(1.2);
+        this.selector = this.add.image(47, 480, 'selector').setScale(1.6);
+=======
         
+>>>>>>> 4d3719e3687c4aacd44083bbcb00074df15d0547
 
         this.municion =  this.physics.add.group();
 
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
-        this.nave.setSize(60,48,0,0);
+        this.nave.setSize(58,48);
+        this.nave.setOffset(3,0)
         this.nave.setCollideWorldBounds(true);
 
         this.container.add([
@@ -72,7 +80,8 @@ class Bootloader extends Phaser.Scene{
         this.flechas = this.input.keyboard.createCursorKeys();
         this.canion = this.physics.add.sprite( 0 , -33 , 'canion').setScale(1.4);
         this.canion.setBounce(0.1);
-        this.canion.setSize(1,1,1)
+        this.canion.setSize(56,10);
+        this.canion.setOffset(4,23);
         this.canion.setCollideWorldBounds(true);
         this.container.add([
             this.canion
@@ -86,7 +95,8 @@ class Bootloader extends Phaser.Scene{
                 var sandi  = this.sandia.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
                 sandi.setBounce(0.2);
                 sandi.setCollideWorldBounds(false);
-                sandi.body.setSize(50,50,0);
+                sandi.body.setSize(45,45,0);
+                sandi.body.setOffset(10,10)
                 this.timelinesandi = this.tweens.createTimeline();
                 this.timelinesandi.add({
                     targets: [sandi],
