@@ -167,8 +167,8 @@ class Bootloader extends Phaser.Scene{
             repeat: 4,
             setXY:{
                x:1200,
-               y: 50,
-               stepY: 100
+               y: 100,
+               stepY: 72
             }             
         });
         this.grupo.children.iterate( (enemigo1) => {
