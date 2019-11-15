@@ -43,7 +43,7 @@ class Bootloader extends Phaser.Scene{
     {
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
-       /* this.fondo = this.add.image(0,0,"fondo");
+       this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
         this.fondo.setScale(.5);
         this.fondo.setDepth(0);
@@ -57,10 +57,7 @@ class Bootloader extends Phaser.Scene{
         this.masvida.body.setGravityY(30);
         this.masvida.body.setGravityX(10);
 
-        this.sandiaselec = this.add.image(10, 420, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
-        this.calabazaselec = this.add.image(80, 420, 'calabaza').setOrigin(0).setScale(1.2);
-        this.papayaselec = this.add.image(150, 410, 'papaya').setOrigin(0).setScale(1.2);
-        this.selector = this.add.image(47, 480, 'selector').setScale(1.6);*/
+        
 
         this.municion =  this.physics.add.group();
 
@@ -100,8 +97,28 @@ class Bootloader extends Phaser.Scene{
                 });
                 this.timelinesandi.play();
                 //this.disparo = !this.disparo;  
-        });
+        });            
+
     },this);
+
+        this.contenedor2 = this.add.container(10,420);
+
+        this.sandiaselec = this.add.image(0, 0, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
+        this.calabazaselec = this.add.image(60, 0, 'calabaza').setOrigin(0).setScale(1.2);
+        this.papayaselec = this.add.image(120, 0, 'papaya').setOrigin(0).setScale(1.2);
+        this.selector = this.add.image(35, 65, 'selector').setScale(1.6);
+
+        this.teclaA = this.input.keyboard.addKey(keyCodes.A);
+        this.teclaD = this.input.keyboard.addKey(keyCodes.D);
+        this.teclaS = this.input.keyboard.addKey(keyCodes.S);
+
+        this.contenedor2.add([
+            this.sandiaselec,
+            this.calabazaselec,
+            this.papayaselec,
+            this.selector,
+        ]);
+        
 
          this.canion.on('animationcomplete-disparo', ()=>{
             this.flechas.space.destroy();
@@ -235,7 +252,20 @@ class Bootloader extends Phaser.Scene{
                 this.canion.y -= 4; */
                 this.container.y -= 4;
             }
-        }  
+        }
+        
+        if( Phaser.Input.Keyboard.JustDown(this.teclaA) ){
+            console.log('Haz presionado la tecla A');
+            this.selector.x= 35;
+        }
+        if( Phaser.Input.Keyboard.JustDown(this.teclaS) ){
+            console.log('Haz presionado la tecla S');
+            this.selector.x= 100;
+        }
+        if( Phaser.Input.Keyboard.JustDown(this.teclaD) ){
+            console.log('Haz presionado la tecla D');
+            this.selector.x= 160;
+        }
     }
     
 }
