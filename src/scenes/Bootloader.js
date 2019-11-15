@@ -57,14 +57,6 @@ class Bootloader extends Phaser.Scene{
         this.masvida.body.setGravityY(30);
         this.masvida.body.setGravityX(10);
 
-<<<<<<< HEAD
-        this.sandiaselec = this.add.image(10, 420, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
-        this.calabazaselec = this.add.image(80, 420, 'calabaza').setOrigin(0).setScale(1.2);
-        this.papayaselec = this.add.image(150, 410, 'papaya').setOrigin(0).setScale(1.2);
-        this.selector = this.add.image(47, 480, 'selector').setScale(1.6);
-=======
-        
->>>>>>> 4d3719e3687c4aacd44083bbcb00074df15d0547
 
         this.municion =  this.physics.add.group();
 
@@ -235,12 +227,13 @@ class Bootloader extends Phaser.Scene{
     update(time,delta)
     {
         if( this.flechas.left.isDown ){
-            //this.nave.x -= 4; 
-            //this.canion.x -= 4; 
-            this.container.x -= 4;
+            if(this.container.x - 4 >= 0) 
+            {
+                this.container.x -= 4;
+            }
         }  
         if( this.flechas.right.isDown ){
-            if(this.nave.x + 4 <= 625 )
+            if(this.container.x + 4 <= 625 )
             {
                 /*this.nave.x += 4;
                 this.canion.x += 4;*/
