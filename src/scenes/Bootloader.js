@@ -78,29 +78,48 @@ class Bootloader extends Phaser.Scene{
         this.container.add([
             this.canion
         ])
-        this.sandia = this.physics.add.group();
+        this.potenciador = this.physics.add.group();
         this.flechas = this.input.keyboard.createCursorKeys();
         this.canion.on('animationcomplete-carga',()=>{
              this.flechas.space.on('down', () => {
                 this.flechas.space.destroy();
                 this.canion.anims.play('disparo');
-                var sandi  = this.sandia.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
-                sandi.setBounce(0.2);
-                sandi.setCollideWorldBounds(false);
-                sandi.body.setSize(45,45,0);
-                sandi.body.setOffset(10,10)
+                if( this.selector.x == 35)
+                {
+                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
+                    sandi.setBounce(0.2);
+                    sandi.setCollideWorldBounds(false);
+                    sandi.body.setSize(45,45,0);
+                    sandi.body.setOffset(10,10)
+                }
+                if( this.selector.x == 100)
+                {
+                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
+                    sandi.setBounce(0.2);
+                    sandi.setCollideWorldBounds(false);
+                    sandi.body.setSize(45,45,0);
+                    sandi.body.setOffset(10,10)
+                }
+                if( this.selector.x == 160)
+                {
+                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
+                    sandi.setBounce(0.2);
+                    sandi.setCollideWorldBounds(false);
+                    sandi.body.setSize(45,45,0);
+                    sandi.body.setOffset(10,10)
+                }
+
                 this.timelinesandi = this.tweens.createTimeline();
                 this.timelinesandi.add({
                     targets: [sandi],
                     x: 1500,
-                    scaleX: 2,
-                    scaleY: 2,
+                    scaleX: 1.5,
+                    scaleY: 1.5,
                     duration: 5000,
                 });
                 this.timelinesandi.play();
                 //this.disparo = !this.disparo;  
         });            
-
     },this);
 
         this.contenedor2 = this.add.container(10,420);
@@ -198,10 +217,10 @@ class Bootloader extends Phaser.Scene{
             setTimeout(()=>{enemigo.setTint()},150); 
         });
 
-        this.physics.add.collider(this.sandia, this.grupo,(sandia, enemigo)=>{
-            sandia.anims.play('destruccion',true);
-            sandia.on('animationcomplete-destruccion', ()=>{
-               sandia.destroy();
+        this.physics.add.collider(this.potenciador, this.grupo,(potenciador, enemigo)=>{
+            potenciador.anims.play('destruccion',true);
+            potenciador.on('animationcomplete-destruccion', ()=>{
+               potenciador.destroy();
                console.log('eeeoo');
              });
             enemigo.setTint(0xff0000);
@@ -256,7 +275,6 @@ class Bootloader extends Phaser.Scene{
                 this.container.y -= 4;
             }
         }
-        
         if( Phaser.Input.Keyboard.JustDown(this.teclaA) ){
             console.log('Haz presionado la tecla A');
             this.selector.x= 35;
