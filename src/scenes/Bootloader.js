@@ -61,30 +61,82 @@ class Bootloader extends Phaser.Scene{
 
         this.drops = this.physics.add.group();
 
-        this.massandi = this.drops.create(625,50,'sandia').setScale(.7);
-        this.massandi.body.setSize(45,45,0);
-        this.massandi.body.setOffset(10,10);
-        this.massandi.body.setAccelerationX(-100);
-        this.masvida = this.drops.create(625,50,'+vida').setScale(.7);
-        this.masvida.body.setSize(30,75);
-        this.masvida.setOffset(47,25);
-        //this.masvida.body.setGravityY(0);
-        this.masvida.body.setAccelerationX(-75);
-        this.mascalaba = this.drops.create(625,50,'calabaza').setScale(.7);
-        this.mascalaba.body.setSize(45,45,0);
-        this.mascalaba.body.setOffset(10,10);
-        this.mascalaba.body.setAccelerationX(-50);
-
-        this.maspapaya = this.drops.create(625,50,'papaya').setScale(.7);
-        this.maspapaya.body.setSize(45,45,0);
-        this.maspapaya.body.setOffset(10,10);
-        this.maspapaya.body.setAccelerationX(-25);
-        
-
+        this.droper= this.time.addEvent({
+            delay: 2000,                // ms
+            callback: () =>  {
+                var ale = Phaser.Math.Between(0, 8);
+                var lugar =  Phaser.Math.Between(50, 400);
+                console.log(ale);
+                
+                switch(ale)
+                {
+                    case 0:
+                            this.masvida = this.drops.create(1250, lugar ,'+vida').setScale(.7);
+                            this.masvida.body.setSize(30,75);
+                            this.masvida.setOffset(47,25);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.masvida],
+                                x: -100,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
+                        break;
+                    case 1:
+                        if(this.cont1.text < 5)
+                        {
+                            this.massandi = this.drops.create(1250,lugar,'sandia').setScale(.7);
+                            this.massandi.body.setSize(45,45,0);
+                            this.massandi.body.setOffset(10,10);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.massandi],
+                                x: -100,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
+                        }
+                        break;
+                    case 2:
+                        if(this.cont2.text < 5)
+                        {
+                            this.mascalaba = this.drops.create(1250,lugar,'calabaza').setScale(.7);
+                            this.mascalaba.body.setSize(45,45,0);
+                            this.mascalaba.body.setOffset(10,10);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.mascalaba],
+                                x: -100,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
+                        }
+                        break;
+                    case 3:
+                        if(this.cont3.text < 5)
+                        {
+                            this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
+                            this.maspapaya.body.setSize(45,45,0);
+                            this.maspapaya.body.setOffset(10,10);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.maspapaya],
+                                x: -100,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
+                        }
+                        break;
+                    default:
+                        break;
+                    
+                }  
+            },
+           loop:true
+        });
 
 
         this.municion =  this.physics.add.group();
-
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
         this.nave.setSize(58,48);
@@ -107,8 +159,6 @@ class Bootloader extends Phaser.Scene{
         this.flechas = this.input.keyboard.createCursorKeys();
         this.canion.on('animationcomplete-carga',()=>{
              this.flechas.space.on('down', () => {
-                
-                
                 if(this.selector.x == 35 && this.cont1.text > 0)
                 {
                     this.flechas.space.destroy();
@@ -200,8 +250,7 @@ class Bootloader extends Phaser.Scene{
 
         this.palatano = this.physics.add.group();
         console.log(this.palatano);
-        this.timer = this.time;
-        this.timer.addEvent({
+        this.timer= this.time.addEvent({
             delay: 500,                // ms
             callback: () =>  {
                 var ano  = this.palatano.create(this.container.x+60,this.container.y,'platano').setScale(.9); 
@@ -216,10 +265,12 @@ class Bootloader extends Phaser.Scene{
                 });
                 this.timeline.play();
             },
-           loop:true
+           loop:true,
+           paused: true
         });
-        this.timer.paused = true;
-        this.saltar = this.input.keyboard.addKey(keyCodes.SHIFT);
+
+
+        this.saltar = this.input.keyboard.addKey(keyCodes.W);
         this.saltar.on('down',()=>
         {
            this.timer.paused = false;
@@ -309,6 +360,18 @@ class Bootloader extends Phaser.Scene{
 
          this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
          {
+            switch(drops.texture.key)
+            {
+                case "papaya":
+                    this.cont3.text = parseInt(this.cont3.text) + 1;
+                    break;
+                case "sandia":
+                    this.cont1.text = parseInt(this.cont1.text) + 1;
+                    break;
+                case "calabaza":
+                    this.cont2.text = parseInt(this.cont2.text) + 1;
+                    break;
+            } 
             drops.destroy();
             nave.setTint(0x1ADC03);
             this.canion.setTint(0xff0000);
@@ -383,6 +446,4 @@ class Bootloader extends Phaser.Scene{
     }
     
 }
-
-
 export default Bootloader;
