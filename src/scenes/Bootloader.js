@@ -45,9 +45,15 @@ class Bootloader extends Phaser.Scene{
 
     create()
     {
+
+
+        
+        //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
+        //this.graphics.fillRectShape(this.life_bar);
+        //this.graphics.setDepth(7);
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
-       this.fondo = this.add.image(0,0,"fondo");
+        this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
         this.fondo.setScale(.5);
         this.fondo.setDepth(0);
@@ -291,6 +297,19 @@ class Bootloader extends Phaser.Scene{
                stepY: 72
             }             
         });
+
+        this.grupo.children.iterate( (enemigo1) => {
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0x1BFF00}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(enemigo1.x-25,enemigo1.y + 25,50,5);
+            this.graphics.fillRectShape(this.life_bar);
+            this.graphics.setDepth(7);
+            enemigo1.setData('vida', 50);
+            enemigo1.setData('linea',this.life_bar);
+            enemigo1.setData('grafico',this.graphics);
+        })
+
         this.grupo.children.iterate( (enemigo1) => {
             enemigo1.setScale(.35).setFlipX(1);
             enemigo1.anims.play('disparare2');
@@ -301,6 +320,7 @@ class Bootloader extends Phaser.Scene{
                    targets: [mun],
                    x: -10,
                    duration: 5000,
+                   
                });
                this.timeline.play();
                enemigo1.anims.play('disparare2');
@@ -310,7 +330,14 @@ class Bootloader extends Phaser.Scene{
         });
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
-            //console.log(enemigo);
+            var vida = enemigo.getData('vida');
+            console.log(vida);
+            enemigo.setData('vida',vida - 5);
+            var linea = enemigo.getData('linea');
+            linea.width = vida -5;
+            var grafico = enemigo.getData('grafico');
+            grafico.clear();
+            grafico.fillRectShape(linea);
             platano.destroy();
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
@@ -382,8 +409,10 @@ class Bootloader extends Phaser.Scene{
              targets: this.grupo.getChildren(),
              x: 600,
             duration: 2000,
-            easy: 'Bounce'
-         })
+            easy: 'Bounce',
+         });
+
+         
 
 
     }
