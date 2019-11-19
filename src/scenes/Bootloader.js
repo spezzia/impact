@@ -57,9 +57,30 @@ class Bootloader extends Phaser.Scene{
         this.nombre.setDepth(6);
         this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
         this.corazon = this.add.image(6,110,'corazon').setOrigin(0).setScale(1.7);
-        this.masvida = this.physics.add.sprite(625,0,'+vida').setScale(.7);
-        this.masvida.body.setGravityY(30);
-        this.masvida.body.setGravityX(10);
+        
+
+        this.drops = this.physics.add.group();
+
+        this.massandi = this.drops.create(625,50,'sandia').setScale(.7);
+        this.massandi.body.setSize(45,45,0);
+        this.massandi.body.setOffset(10,10);
+        this.massandi.body.setAccelerationX(-100);
+        this.masvida = this.drops.create(625,50,'+vida').setScale(.7);
+        this.masvida.body.setSize(30,75);
+        this.masvida.setOffset(47,25);
+        //this.masvida.body.setGravityY(0);
+        this.masvida.body.setAccelerationX(-75);
+        this.mascalaba = this.drops.create(625,50,'calabaza').setScale(.7);
+        this.mascalaba.body.setSize(45,45,0);
+        this.mascalaba.body.setOffset(10,10);
+        this.mascalaba.body.setAccelerationX(-50);
+
+        this.maspapaya = this.drops.create(625,50,'papaya').setScale(.7);
+        this.maspapaya.body.setSize(45,45,0);
+        this.maspapaya.body.setOffset(10,10);
+        this.maspapaya.body.setAccelerationX(-25);
+        
+
 
 
         this.municion =  this.physics.add.group();
@@ -152,8 +173,6 @@ class Bootloader extends Phaser.Scene{
         });
 
         console.log(this.papayaselec.texture.key);
-        
-            
 
         this.teclaA = this.input.keyboard.addKey(keyCodes.A);
         this.teclaD = this.input.keyboard.addKey(keyCodes.D);
@@ -226,7 +245,7 @@ class Bootloader extends Phaser.Scene{
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
-               this.timeline = this.tweens.createTimeline();
+                this.timeline = this.tweens.createTimeline();
                this.timeline.add({
                    targets: [mun],
                    x: -10,
@@ -283,6 +302,15 @@ class Bootloader extends Phaser.Scene{
         this.physics.add.collider(this.municion,this.nave,(nave,municion)=> {
              municion.destroy();
             nave.setTint(0xff0000);
+            this.canion.setTint(0xff0000);
+            setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
+         });
+
+
+         this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
+         {
+            drops.destroy();
+            nave.setTint(0x1ADC03);
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
