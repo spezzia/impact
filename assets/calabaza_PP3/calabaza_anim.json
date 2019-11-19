@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "explotar",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "calabaza",
+                    "frame": "calabaza_explotar_0"
+                },
+                {
+                    "key": "calabaza",
+                    "frame": "calabaza_explotar_1"
+                },
+                {
+                    "key": "calabaza",
+                    "frame": "calabaza_explotar_2"
+                },
+                {
+                    "key": "calabaza",
+                    "frame": "calabaza_explotar_3"
+                },
+                {
+                    "key": "calabaza",
+                    "frame": "calabaza_explotar_4"
+                }
+            ]
+        }
+    ]
+}

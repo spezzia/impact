@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "colision",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "papaya",
+                    "frame": "papaya_explota_0"
+                },
+                {
+                    "key": "papaya",
+                    "frame": "papaya_explota_1"
+                },
+                {
+                    "key": "papaya",
+                    "frame": "papaya_explota_2"
+                },
+                {
+                    "key": "papaya",
+                    "frame": "papaya_explota_3"
+                },
+                {
+                    "key": "papaya",
+                    "frame": "papaya_explota_4"
+                }
+            ]
+        }
+    ]
+}
