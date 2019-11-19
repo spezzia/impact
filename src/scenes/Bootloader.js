@@ -62,7 +62,7 @@ class Bootloader extends Phaser.Scene{
         this.drops = this.physics.add.group();
 
         this.droper= this.time.addEvent({
-            delay: 2000,                // ms
+            delay: 20000,                // ms
             callback: () =>  {
                 var ale = Phaser.Math.Between(0, 8);
                 var lugar =  Phaser.Math.Between(50, 400);
