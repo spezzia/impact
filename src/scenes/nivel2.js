@@ -1,5 +1,5 @@
 var direccion;
-class Bootloader extends Phaser.Scene{
+class nivel2 extends Phaser.Scene{
     constructor(direccion){
         super({
             key:"Bootloader" // Nombre interno o clave de referencia
@@ -45,108 +45,25 @@ class Bootloader extends Phaser.Scene{
 
     create()
     {
-
-
-        
-        //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
-        //this.graphics.fillRectShape(this.life_bar);
-        //this.graphics.setDepth(7);
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
-        this.fondo = this.add.image(0,0,"fondo");
+       this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
         this.fondo.setScale(.5);
         this.fondo.setDepth(0);
-        this.rose = this.add.image(1250,400,'rose').setScale(.7);
+        this.rose = this.add.image(1100,350,'rose').setScale(1.25);
         this.nombre = this.add.image(625,10,'nombre').setScale(.7);
         this.nombre.setOrigin(.5,0);
         this.nombre.setDepth(6);
         this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
         this.corazon = this.add.image(6,110,'corazon').setOrigin(0).setScale(1.7);
-
-        this.score = this.add.text(100, 20, 'Score: 000000000', {
-            fontSize: 20
-        });
-        
-
-        this.drops = this.physics.add.group();
-
-        this.droper= this.time.addEvent({
-            delay: 20000,                // ms
-            callback: () =>  {
-                var ale = Phaser.Math.Between(0, 8);
-                var lugar =  Phaser.Math.Between(50, 400);
-                console.log(ale);
-                
-                switch(ale)
-                {
-                    case 0:
-                            this.masvida = this.drops.create(1250, lugar ,'+vida').setScale(.7);
-                            this.masvida.body.setSize(30,75);
-                            this.masvida.setOffset(47,25);
-                            this.droppear = this.tweens.createTimeline();
-                            this.droppear.add({
-                                targets: [this.masvida],
-                                x: -100,
-                                duration: 4000,
-                            });
-                            this.droppear.play();
-                        break;
-                    case 1:
-                        if(this.cont1.text < 5)
-                        {
-                            this.massandi = this.drops.create(1250,lugar,'sandia').setScale(.7);
-                            this.massandi.body.setSize(45,45,0);
-                            this.massandi.body.setOffset(10,10);
-                            this.droppear = this.tweens.createTimeline();
-                            this.droppear.add({
-                                targets: [this.massandi],
-                                x: -100,
-                                duration: 4000,
-                            });
-                            this.droppear.play();
-                        }
-                        break;
-                    case 2:
-                        if(this.cont2.text < 5)
-                        {
-                            this.mascalaba = this.drops.create(1250,lugar,'calabaza').setScale(.7);
-                            this.mascalaba.body.setSize(45,45,0);
-                            this.mascalaba.body.setOffset(10,10);
-                            this.droppear = this.tweens.createTimeline();
-                            this.droppear.add({
-                                targets: [this.mascalaba],
-                                x: -100,
-                                duration: 4000,
-                            });
-                            this.droppear.play();
-                        }
-                        break;
-                    case 3:
-                        if(this.cont3.text < 5)
-                        {
-                            this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
-                            this.maspapaya.body.setSize(45,45,0);
-                            this.maspapaya.body.setOffset(10,10);
-                            this.droppear = this.tweens.createTimeline();
-                            this.droppear.add({
-                                targets: [this.maspapaya],
-                                x: -100,
-                                duration: 4000,
-                            });
-                            this.droppear.play();
-                        }
-                        break;
-                    default:
-                        break;
-                    
-                }  
-            },
-           loop:true
-        });
+        this.masvida = this.physics.add.sprite(625,0,'+vida').setScale(.7);
+        this.masvida.body.setGravityY(30);
+        this.masvida.body.setGravityX(10);
 
 
         this.municion =  this.physics.add.group();
+
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
         this.nave.setSize(58,48);
@@ -169,6 +86,8 @@ class Bootloader extends Phaser.Scene{
         this.flechas = this.input.keyboard.createCursorKeys();
         this.canion.on('animationcomplete-carga',()=>{
              this.flechas.space.on('down', () => {
+                
+                
                 if(this.selector.x == 35 && this.cont1.text > 0)
                 {
                     this.flechas.space.destroy();
@@ -233,6 +152,8 @@ class Bootloader extends Phaser.Scene{
         });
 
         console.log(this.papayaselec.texture.key);
+        
+            
 
         this.teclaA = this.input.keyboard.addKey(keyCodes.A);
         this.teclaD = this.input.keyboard.addKey(keyCodes.D);
@@ -260,7 +181,8 @@ class Bootloader extends Phaser.Scene{
 
         this.palatano = this.physics.add.group();
         console.log(this.palatano);
-        this.timer= this.time.addEvent({
+        this.timer = this.time;
+        this.timer.addEvent({
             delay: 500,                // ms
             callback: () =>  {
                 var ano  = this.palatano.create(this.container.x+60,this.container.y,'platano').setScale(.9); 
@@ -275,12 +197,10 @@ class Bootloader extends Phaser.Scene{
                 });
                 this.timeline.play();
             },
-           loop:true,
-           paused: true
+           loop:true
         });
-
-
-        this.saltar = this.input.keyboard.addKey(keyCodes.W);
+        this.timer.paused = true;
+        this.saltar = this.input.keyboard.addKey(keyCodes.SHIFT);
         this.saltar.on('down',()=>
         {
            this.timer.paused = false;
@@ -294,27 +214,23 @@ class Bootloader extends Phaser.Scene{
          //Creación de grupo de naves enemigas
          this.grupo=this.physics.add.group({
             key: 'enemigo2',
-            repeat: 4,
+            repeat: 3,
             setXY:{
                x:1200,
                y: 100,
-               stepY: 72
+               stepY: 100
             }             
         });
-
-        
-
         this.grupo.children.iterate( (enemigo1) => {
-            enemigo1.setScale(.35).setFlipX(1);
+            enemigo1.setScale(.2).setFlipX(1);
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
-                this.timeline = this.tweens.createTimeline();
+               this.timeline = this.tweens.createTimeline();
                this.timeline.add({
                    targets: [mun],
                    x: -10,
                    duration: 5000,
-                   
                });
                this.timeline.play();
                enemigo1.anims.play('disparare2');
@@ -323,20 +239,33 @@ class Bootloader extends Phaser.Scene{
            },this);
         });
 
+        this.timelineN = this.tweens.createTimeline();
+        this.timelineN.add({
+            targets: this.grupo.getChildren(),
+            x: 600,
+           duration: 2000,
+           ease: 'Power1'
+        })
+
+        this.timelineN.play();
+
+        
+
+
         //Creación de grupo NAVES ELITE
         this.grupoe=this.physics.add.group({
             key: 'enemigo2',
-            repeat: 3,
+            repeat: 2,
             setXY: {
                 x:1200,
-                y:350,
-                //stepY:100
+                y:150,
+               stepY:100
             }
         });
         
 
         this.grupoe.children.iterate((elite) => {
-            elite.setScale(.35).setFlipX(1);
+            elite.setScale(.2).setFlipX(1);
             elite.anims.play('disparare2');
             elite.on('animationcomplete',() => {
                 var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
@@ -351,50 +280,32 @@ class Bootloader extends Phaser.Scene{
 
             });
         });
+
+        this.timelineE = this.tweens.createTimeline();
+        this.timelineE.add({
+            targets: this.grupoe.getChildren(),
+            ease: 'Power1',
+            x: 750,
+            
+            duration:2500,
+            
+            
+        })
+
+         this.timelineE.play();
+         
+         
+        
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
-            if(enemigo.getData('vida') == null)
-            {
-                this.graphics = this.add.graphics({
-                    fillStyle:{color: 0x1BFF00}
-                })
-                this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
-                this.graphics.fillRectShape(this.life_bar);
-                this.graphics.setDepth(7);
-                enemigo.setData('vida', 50);
-                enemigo.setData('linea',this.life_bar);
-                enemigo.setData('grafico',this.graphics);
-
-            }else
-            {
-                var vida = enemigo.getData('vida');
-                if(vida - 20 < 0)
-                {
-                    var grafico = enemigo.getData('grafico');
-                   grafico.clear();
-                   enemigo.destroy() ;
-                   
-                   
-                }else{
-                    enemigo.setData('vida',vida - 20);
-                    var linea = enemigo.getData('linea');
-                    linea.x = enemigo.x-25;
-                    linea.width = vida - 20;
-                    var grafico = enemigo.getData('grafico');
-                    grafico.clear();
-                    grafico.fillRectShape(linea);
-                }
-            }
+            //console.log(enemigo);
             platano.destroy();
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
 
         this.physics.add.collider(this.potenciador, this.grupo,(potenciador, enemigo)=>{
-            
-
-
-
+            console.log();
             if(potenciador.texture.key == "sandia")
             {
                 potenciador.anims.play('destruccion',true);
@@ -404,38 +315,6 @@ class Bootloader extends Phaser.Scene{
                 });
                 enemigo.setTint(0xff0000);
                 setTimeout(()=>{enemigo.setTint()},150); 
-                if(enemigo.getData('vida') == null)
-                {
-                    this.graphics = this.add.graphics({
-                        fillStyle:{color: 0x1BFF00}
-                    })
-                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
-                    this.graphics.fillRectShape(this.life_bar);
-                    this.graphics.setDepth(7);
-                    enemigo.setData('vida', 50);
-                    enemigo.setData('linea',this.life_bar);
-                    enemigo.setData('grafico',this.graphics);
-    
-                }else
-                {
-                    var vida = enemigo.getData('vida');
-                    if(vida - 50 < 0)
-                    {
-                        var grafico = enemigo.getData('grafico');
-                       grafico.clear();
-                       enemigo.destroy() ;
-                       
-                       
-                    }else{
-                        enemigo.setData('vida',vida - 50);
-                        var linea = enemigo.getData('linea');
-                        linea.x = enemigo.x-25;
-                        linea.width = vida - 50;
-                        var grafico = enemigo.getData('grafico');
-                        grafico.clear();
-                        grafico.fillRectShape(linea);
-                    }
-                }
             }
             if(potenciador.texture.key == "calabaza")
             {
@@ -466,81 +345,7 @@ class Bootloader extends Phaser.Scene{
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
 
-         this.physics.add.collider(this.municion,this.palatano,(platano,municion)=> {
-            municion.destroy();
-            platano.destroy();
-        });
-
-
-
-
-         this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
-         {
-            switch(drops.texture.key)
-            {
-                case "papaya":
-                    this.cont3.text = parseInt(this.cont3.text) + 1;
-                    break;
-                case "sandia":
-                    this.cont1.text = parseInt(this.cont1.text) + 1;
-                    break;
-                case "calabaza":
-                    this.cont2.text = parseInt(this.cont2.text) + 1;
-                    break;
-            } 
-            drops.destroy();
-            nave.setTint(0x1ADC03);
-            this.canion.setTint(0xff0000);
-            setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
-         });
-
-         this.add.tween({
-             targets: this.grupo.getChildren(),
-             x: 600,
-            duration: 2000,
-            easy: 'Bounce',
-         });
-
          
-
-         this.add.tween({
-             targets: this.grupoe.getChildren(),
-             x: 750,
-             y: 150,
-             duration:2500,
-            easy: 'Elastic',
-            onComplete: () => {
-                // this.grupoe=this.physics.add.group({
-                //     key: 'enemigo2',
-                //     repeat: 2,
-                //     setXY: {
-                //         x:750,
-                //         y:150,
-                //         stepY:100
-                //     }
-
-                    
-                // });
-                // this.grupoe.children.iterate((elite) => {
-                    
-                //     elite.setScale(.35).setFlipX(1);
-                //     elite.anims.play('disparare2');
-                //     elite.on('animationcomplete',() => {
-                //         var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
-                //        this.timeline = this.tweens.createTimeline();
-                //        this.timeline.add({
-                //            targets: [mun],
-                //            x: -10,
-                //            duration: 5000,
-                //         });
-                //         this.timeline.play();
-                //         elite.anims.play('disparare2');
-        
-                //     });
-                // });
-            }
-         })
-
 
     }
     update(time,delta)
@@ -602,4 +407,6 @@ class Bootloader extends Phaser.Scene{
     }
     
 }
-export default Bootloader;
+
+
+export default nivel2;
