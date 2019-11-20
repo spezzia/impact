@@ -63,6 +63,10 @@ class Bootloader extends Phaser.Scene{
         this.nombre.setDepth(6);
         this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
         this.corazon = this.add.image(6,110,'corazon').setOrigin(0).setScale(1.7);
+
+        this.score = this.add.text(100, 20, 'Score: 000000000', {
+            fontSize: 20
+        });
         
 
         this.drops = this.physics.add.group();
