@@ -298,17 +298,7 @@ class Bootloader extends Phaser.Scene{
             }             
         });
 
-        this.grupo.children.iterate( (enemigo1) => {
-            this.graphics = this.add.graphics({
-                fillStyle:{color: 0x1BFF00}
-            })
-            this.life_bar = new Phaser.Geom.Rectangle(enemigo1.x-25,enemigo1.y + 25,50,5);
-            this.graphics.fillRectShape(this.life_bar);
-            this.graphics.setDepth(7);
-            enemigo1.setData('vida', 50);
-            enemigo1.setData('linea',this.life_bar);
-            enemigo1.setData('grafico',this.graphics);
-        })
+        
 
         this.grupo.children.iterate( (enemigo1) => {
             enemigo1.setScale(.35).setFlipX(1);
@@ -330,21 +320,48 @@ class Bootloader extends Phaser.Scene{
         });
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
-            var vida = enemigo.getData('vida');
-            console.log(vida);
-            enemigo.setData('vida',vida - 5);
-            var linea = enemigo.getData('linea');
-            linea.width = vida -5;
-            var grafico = enemigo.getData('grafico');
-            grafico.clear();
-            grafico.fillRectShape(linea);
+            if(enemigo.getData('vida') == null)
+            {
+                this.graphics = this.add.graphics({
+                    fillStyle:{color: 0x1BFF00}
+                })
+                this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
+                this.graphics.fillRectShape(this.life_bar);
+                this.graphics.setDepth(7);
+                enemigo.setData('vida', 50);
+                enemigo.setData('linea',this.life_bar);
+                enemigo.setData('grafico',this.graphics);
+
+            }else
+            {
+                var vida = enemigo.getData('vida');
+                if(vida - 20 < 0)
+                {
+                    var grafico = enemigo.getData('grafico');
+                   grafico.clear();
+                   enemigo.destroy() ;
+                   
+                   
+                }else{
+                    enemigo.setData('vida',vida - 20);
+                    var linea = enemigo.getData('linea');
+                    linea.x = enemigo.x-25;
+                    linea.width = vida - 20;
+                    var grafico = enemigo.getData('grafico');
+                    grafico.clear();
+                    grafico.fillRectShape(linea);
+                }
+            }
             platano.destroy();
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
 
         this.physics.add.collider(this.potenciador, this.grupo,(potenciador, enemigo)=>{
-            console.log();
+            
+
+
+
             if(potenciador.texture.key == "sandia")
             {
                 potenciador.anims.play('destruccion',true);
@@ -354,6 +371,38 @@ class Bootloader extends Phaser.Scene{
                 });
                 enemigo.setTint(0xff0000);
                 setTimeout(()=>{enemigo.setTint()},150); 
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 50);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 50 < 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 50);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x-25;
+                        linea.width = vida - 50;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
             }
             if(potenciador.texture.key == "calabaza")
             {
@@ -383,6 +432,13 @@ class Bootloader extends Phaser.Scene{
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
+
+         this.physics.add.collider(this.municion,this.palatano,(platano,municion)=> {
+            municion.destroy();
+            platano.destroy();
+        });
+
+
 
 
          this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
