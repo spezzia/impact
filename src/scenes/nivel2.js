@@ -223,6 +223,8 @@ class nivel2 extends Phaser.Scene{
         });
         this.grupo.children.iterate( (enemigo1) => {
             enemigo1.setScale(.2).setFlipX(1);
+            enemigo1.setSize(200,140);
+            enemigo1.setOffset(10,30);
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
@@ -266,6 +268,8 @@ class nivel2 extends Phaser.Scene{
 
         this.grupoe.children.iterate((elite) => {
             elite.setScale(.2).setFlipX(1);
+            elite.setSize(200,140);
+            elite.setOffset(10,30);
             elite.anims.play('disparare2');
             elite.on('animationcomplete',() => {
                 var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
