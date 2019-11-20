@@ -323,34 +323,7 @@ class Bootloader extends Phaser.Scene{
            },this);
         });
 
-        //Creación de grupo NAVES ELITE
-        this.grupoe=this.physics.add.group({
-            key: 'enemigo2',
-            repeat: 3,
-            setXY: {
-                x:1200,
-                y:350,
-                //stepY:100
-            }
-        });
-        
-
-        this.grupoe.children.iterate((elite) => {
-            elite.setScale(.35).setFlipX(1);
-            elite.anims.play('disparare2');
-            elite.on('animationcomplete',() => {
-                var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
-               this.timeline = this.tweens.createTimeline();
-               this.timeline.add({
-                   targets: [mun],
-                   x: -10,
-                   duration: 5000,
-                });
-                this.timeline.play();
-                elite.anims.play('disparare2');
-
-            });
-        });
+       
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
             if(enemigo.getData('vida') == null)
@@ -502,45 +475,6 @@ class Bootloader extends Phaser.Scene{
          });
 
          
-
-         this.add.tween({
-             targets: this.grupoe.getChildren(),
-             x: 750,
-             y: 150,
-             duration:2500,
-            easy: 'Elastic',
-            onComplete: () => {
-                // this.grupoe=this.physics.add.group({
-                //     key: 'enemigo2',
-                //     repeat: 2,
-                //     setXY: {
-                //         x:750,
-                //         y:150,
-                //         stepY:100
-                //     }
-
-                    
-                // });
-                // this.grupoe.children.iterate((elite) => {
-                    
-                //     elite.setScale(.35).setFlipX(1);
-                //     elite.anims.play('disparare2');
-                //     elite.on('animationcomplete',() => {
-                //         var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
-                //        this.timeline = this.tweens.createTimeline();
-                //        this.timeline.add({
-                //            targets: [mun],
-                //            x: -10,
-                //            duration: 5000,
-                //         });
-                //         this.timeline.play();
-                //         elite.anims.play('disparare2');
-        
-                //     });
-                // });
-            }
-         })
-
 
     }
     update(time,delta)
