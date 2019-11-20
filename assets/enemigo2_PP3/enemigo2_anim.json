@@ -4,23 +4,23 @@
             "key": "disparare2",
             "type": "frames",
             "repeat": 0,
-            "frameRate": 1.5,
+            "frameRate": 2,
             "frames": [
                 {
                     "key": "enemigo2",
-                    "frame": "navebasica_clone_(7)_0"
+                    "frame": "nave_final_dos_0"
                 },
                 {
                     "key": "enemigo2",
-                    "frame": "navebasica_clone_(7)_1"
+                    "frame": "nave_final_dos_1"
                 },
                 {
                     "key": "enemigo2",
-                    "frame": "navebasica_clone_(7)_2"
+                    "frame": "nave_final_dos_2"
                 },
                 {
                     "key": "enemigo2",
-                    "frame": "navebasica_clone_(7)_3"
+                    "frame": "nave_final_dos_3"
                 }
             ]
         }
