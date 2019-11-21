@@ -31,6 +31,8 @@ class nivel2 extends Phaser.Scene{
         this.load.image('selector', 'selector.png');
         this.load.atlas('enemigo2', 'enemigo2_PP3/enemigo2.png','enemigo2_PP3/enemigo2_atlas.json');
         this.load.animation('enemigoo1', 'enemigo2_PP3/enemigo2_anim.json');
+        this.load.atlas('naveelite', 'naveelite_PP3/naveelite.png', 'naveelite_PP3/naveelite_atlas.json');
+        this.load.animation('naveelite', 'naveelite_PP3/naveelite_anim.json');
         this.load.image('vida','barra_vida/barra_vida00.png');
         this.load.image('+vida','+vida.png');
         this.load.image('corazon','corazonvida.png');
@@ -69,6 +71,8 @@ class nivel2 extends Phaser.Scene{
         this.nave.setSize(58,48);
         this.nave.setOffset(3,0)
         this.nave.setCollideWorldBounds(true);
+
+        
 
         this.container.add([
             this.nave
@@ -214,15 +218,18 @@ class nivel2 extends Phaser.Scene{
          //Creación de grupo de naves enemigas
          this.grupo=this.physics.add.group({
             key: 'enemigo2',
-            repeat: 3,
+            repeat: 6,
             setXY:{
                x:1200,
                y: 100,
-               stepY: 100
+               stepY: 50
             }             
         });
         this.grupo.children.iterate( (enemigo1) => {
             enemigo1.setScale(.2).setFlipX(1);
+            enemigo1.setSize(200, 140);
+            enemigo1.setOffset(5, 30);
+
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
@@ -241,23 +248,32 @@ class nivel2 extends Phaser.Scene{
 
         this.timelineN = this.tweens.createTimeline();
         this.timelineN.add({
-            targets: this.grupo.getChildren(),
+            targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[2], this.grupo.getChildren()[4], this.grupo.getChildren()[6]],
             x: 600,
            duration: 2000,
            ease: 'Power1'
         })
 
+        this.timelineO = this.tweens.createTimeline();
+        this.timelineO.add({
+            targets: [this.grupo.getChildren()[1], this.grupo.getChildren()[3], this.grupo.getChildren()[5]],
+            x: 720,
+           duration: 2000,
+           ease: 'Power1'
+        })
+
         this.timelineN.play();
+        this.timelineO.play();
 
         
-
-
         //Creación de grupo NAVES ELITE
+
+       // this.elite = this.physics.add.sprite(1100, 400, 'disparar').setScale(.5);
         this.grupoe=this.physics.add.group({
-            key: 'enemigo2',
+            key: 'naveelite',
             repeat: 2,
             setXY: {
-                x:1200,
+                x:1000,
                 y:150,
                stepY:100
             }
@@ -265,8 +281,12 @@ class nivel2 extends Phaser.Scene{
         
 
         this.grupoe.children.iterate((elite) => {
-            elite.setScale(.2).setFlipX(1);
-            elite.anims.play('disparare2');
+
+            elite.setScale(.5);
+            elite.setSize(-110,-140);
+            elite.setOffset(160, 170);
+            elite.anims.play('disparar');
+
             elite.on('animationcomplete',() => {
                 var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
                this.timeline = this.tweens.createTimeline();
@@ -276,7 +296,7 @@ class nivel2 extends Phaser.Scene{
                    duration: 5000,
                 });
                 this.timeline.play();
-                elite.anims.play('disparare2');
+                elite.anims.play('disparar');
 
             });
         });
@@ -285,7 +305,7 @@ class nivel2 extends Phaser.Scene{
         this.timelineE.add({
             targets: this.grupoe.getChildren(),
             ease: 'Power1',
-            x: 750,
+            x: 820,
             
             duration:2500,
             
@@ -344,6 +364,11 @@ class nivel2 extends Phaser.Scene{
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
+
+        this.physics.add.collider(this.nave, this.grupo, () => {
+            this.nave.setVelocity(0);
+            this.nave.setAcceleration(0);
+        })
 
          
 
