@@ -45,7 +45,7 @@ class Bootloader extends Phaser.Scene{
 
     create()
     {
-
+        this.navesenemegiasdead = 0;
 
         
         //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
@@ -305,7 +305,7 @@ class Bootloader extends Phaser.Scene{
         
 
         this.grupo.children.iterate( (enemigo1) => {
-            enemigo1.setScale(.35).setFlipX(1);
+            enemigo1.setScale(.2).setFlipX(1);
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
@@ -323,7 +323,31 @@ class Bootloader extends Phaser.Scene{
            },this);
         });
 
-       
+        this.add.tween({
+            targets: this.grupo.getChildren()[2],
+            x: 600,
+           duration: 2000,
+           ease: 'Power1',
+        });
+
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: [this.grupo.getChildren()[1], this.grupo.getChildren()[3]],
+            x: 700,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[4]],
+            x: 800,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineN.play();
+        this.timelineO.play();
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
             if(enemigo.getData('vida') == null)
@@ -346,7 +370,7 @@ class Bootloader extends Phaser.Scene{
                     var grafico = enemigo.getData('grafico');
                    grafico.clear();
                    enemigo.destroy() ;
-                   
+                   this.navesenemegiasdead++;
                    
                 }else{
                     enemigo.setData('vida',vida - 20);
@@ -397,7 +421,7 @@ class Bootloader extends Phaser.Scene{
                         var grafico = enemigo.getData('grafico');
                        grafico.clear();
                        enemigo.destroy() ;
-                       
+                       this.navesenemegiasdead++;
                        
                     }else{
                         enemigo.setData('vida',vida - 50);
@@ -467,16 +491,11 @@ class Bootloader extends Phaser.Scene{
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
 
-         this.add.tween({
-             targets: this.grupo.getChildren(),
-             x: 600,
-            duration: 2000,
-            easy: 'Bounce',
-         });
-
+         
          
 
     }
+    
     update(time,delta)
     {
         if( this.flechas.left.isDown ){
@@ -533,7 +552,73 @@ class Bootloader extends Phaser.Scene{
         {
             this.calabazaselec.setTint(0x5C5A63);
         }
+
+        if(this.navesenemegiasdead == 5)
+        {
+            this.oleada();
+            this.navesenemegiasdead++;
+        }
     }
-    
+    oleada(){
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 4,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+
+        
+
+        this.grupo.children.iterate( (enemigo1) => {
+            enemigo1.setScale(.2).setFlipX(1);
+            enemigo1.anims.play('disparare2');
+            enemigo1.on('animationcomplete',()=>{
+               var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+                this.timeline = this.tweens.createTimeline();
+               this.timeline.add({
+                   targets: [mun],
+                   x: -10,
+                   duration: 5000,
+                   
+               });
+               this.timeline.play();
+               enemigo1.anims.play('disparare2');
+               console.log("Hola");
+               
+           },this);
+        });
+
+        this.add.tween({
+            targets: this.grupo.getChildren()[2],
+            x: 600,
+           duration: 2000,
+           ease: 'Power1',
+        });
+
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: [this.grupo.getChildren()[1], this.grupo.getChildren()[3]],
+            x: 700,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[4]],
+            x: 800,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineN.play();
+        this.timelineO.play();
+        
+    }
 }
+
+
 export default Bootloader;
