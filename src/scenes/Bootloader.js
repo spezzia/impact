@@ -57,6 +57,8 @@ class Bootloader extends Phaser.Scene{
     create()
     {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
+
+        this.navesenemegiasdead = 0;
         //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
         //this.graphics.fillRectShape(this.life_bar);
         //this.graphics.setDepth(7);
@@ -175,6 +177,7 @@ class Bootloader extends Phaser.Scene{
 
 
         this.municion =  this.physics.add.group();
+        this.municion2 = this.physics.add.group();
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
         this.nave.setMass(10);
@@ -362,18 +365,41 @@ class Bootloader extends Phaser.Scene{
         
 
         this.grupo.children.iterate( (enemigo1) => {
-            enemigo1.setScale(.35).setFlipX(1);
+            enemigo1.setScale(.2).setFlipX(1);
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
-               var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+            var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
                enemigo1.anims.play('disparare2');
                console.log("Hola");
-               
            },this);
         });
 
-       
+        this.add.tween({
+            targets: this.grupo.getChildren()[2],
+            x: 600,
+           duration: 2000,
+           ease: 'Power1',
+        });
+
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: [this.grupo.getChildren()[1], this.grupo.getChildren()[3]],
+            x: 700,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[4]],
+            x: 800,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineN.play();
+        this.timelineO.play();
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
             if(enemigo.getData('vida') == null)
@@ -396,7 +422,7 @@ class Bootloader extends Phaser.Scene{
                     var grafico = enemigo.getData('grafico');
                    grafico.clear();
                    enemigo.destroy() ;
-                   
+                   this.navesenemegiasdead++;
                    
                 }else{
                     enemigo.setData('vida',vida - 20);
@@ -447,7 +473,7 @@ class Bootloader extends Phaser.Scene{
                         var grafico = enemigo.getData('grafico');
                        grafico.clear();
                        enemigo.destroy() ;
-                       
+                       this.navesenemegiasdead++;
                        
                     }else{
                         enemigo.setData('vida',vida - 50);
@@ -494,7 +520,7 @@ class Bootloader extends Phaser.Scene{
                         var grafico = enemigo.getData('grafico');
                        grafico.clear();
                        enemigo.destroy() ;
-                       
+                       this.navesenemegiasdead++;
                        
                     }else{
                         enemigo.setData('vida',vida - 25);
@@ -531,7 +557,7 @@ class Bootloader extends Phaser.Scene{
                         var grafico = enemigo.getData('grafico');
                        grafico.clear();
                        enemigo.destroy() ;
-                       
+                       this.navesenemegiasdead++;
                        
                     }else{
                         enemigo.setData('vida',vida - 100);
@@ -553,6 +579,7 @@ class Bootloader extends Phaser.Scene{
             this.barravida.fillRectShape(this.vida_nave)
             nave.setVelocity(0);
             nave.setAcceleration(0);
+         
             municion.destroy();
             nave.setTint(0xff0000);
             this.canion.setTint(0xff0000);
@@ -599,16 +626,11 @@ class Bootloader extends Phaser.Scene{
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
 
-         this.add.tween({
-             targets: this.grupo.getChildren(),
-             x: 600,
-            duration: 2000,
-            easy: 'Bounce',
-         });
-
+         
          
 
     }
+    
     update(time,delta)
     {
         this.canion.x = 0;
@@ -678,9 +700,158 @@ class Bootloader extends Phaser.Scene{
         }
         else{
             this.calabazaselec.setTint();
-        } 
+      
+        }
+
+        if(this.navesenemegiasdead == 5)
+        {
+            this.oleada();
+            this.oleada1_Aux();
+            this.disparar();
+            this.navesenemegiasdead++;
+        }
+        if(this.navesenemegiasdead == 15)
+        {
+            this.navesenemegiasdead++;
+            this.oleada2_Aux();
+             
+        }
         
+    }
+
+    oleada(){
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 4,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+        this.add.tween({
+            targets: this.grupo.getChildren()[2],
+            x: 800,
+           duration: 2000,
+           ease: 'Power1',
+        });
+
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: [this.grupo.getChildren()[1], this.grupo.getChildren()[3]],
+            x: 700,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[4]],
+            x: 600,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineN.play();
+        this.timelineO.play();
+        
+    }
+
+    oleada1_Aux()
+    {
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 3,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+
+       
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: this.grupo.getChildren()[6],
+            x: 900,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: this.grupo.getChildren()[5],
+            x: 1000,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineP = this.tweens.createTimeline()
+        this.timelineP.add({
+            targets: this.grupo.getChildren()[7],
+            x:900,
+            y:316,
+            ease: 'Power1'
+
+        })
+
+        this.timelineQ = this.tweens.createTimeline()
+        this.timelineQ.add({
+            targets: this.grupo.getChildren()[8],
+            x:1000,
+            y:388,
+            ease: 'Power1'
+
+        })
+        this.timelineN.play();
+        this.timelineO.play();
+        this.timelineP.play();
+        this.timelineQ.play();
+    }
+
+    oleada2_Aux(){
+        this.oleada();
+
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 4,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+
+        this.timelineR = this.tweens.createTimeline()
+        this.timelineR.add({
+            targets: this.grupo.getChildren(),
+            x: 1000,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.disparar();
+
+    }
+
+    oleada3_Aux(){
+
+    }
+
+    disparar(){
+        this.grupo.children.iterate( (enemigo1) => {
+            enemigo1.setScale(.2).setFlipX(1);
+            enemigo1.anims.play('disparare2');
+            enemigo1.on('animationcomplete',()=>{
+                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+               mun.body.setVelocityX(-100);
+               enemigo1.anims.play('disparare2');
+               console.log("Hola");
+           },this);
+        });
     }
     
 }
+
+
 export default Bootloader;
