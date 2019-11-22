@@ -188,6 +188,15 @@ class Bootloader extends Phaser.Scene{
                     sandi.body.setOffset(10,10);
                     this.cont1.text = this.cont1.text - 1;
                     this.canion.anims.play('disparo');
+                    this.timelinesandi = this.tweens.createTimeline();
+                    this.timelinesandi.add({
+                        targets: [sandi],
+                        x: 1500,
+                        scaleX: 1.5,
+                        scaleY: 1.5,
+                        duration: 5000,
+                    });
+                    this.timelinesandi.play();
                 }
                 if( this.selector.x == 100 && this.cont2.text > 0)
                 {
@@ -199,6 +208,18 @@ class Bootloader extends Phaser.Scene{
                     sandi.body.setOffset(10,10);
                     this.cont2.text = this.cont2.text - 1;
                     this.canion.anims.play('disparo');
+                    this.timelinesandi = this.tweens.createTimeline();
+                    this.timelinesandi.add({
+                        targets: [sandi],
+                        x: this.container.x + 200,
+                        scaleX: 3,
+                        scaleY: 3,
+                        duration: 500,
+                        onCompleat: () => {
+                            sandi.body.setVelocityX(300);
+                        }
+                    });
+                    this.timelinesandi.play();
                 }
                 if( this.selector.x == 160 && this.cont3.text > 0)
                 {
@@ -210,17 +231,24 @@ class Bootloader extends Phaser.Scene{
                     sandi.body.setOffset(10,10);
                     this.canion.anims.play('disparo');
                     this.cont3.text = this.cont3.text - 1;
+                    this.timelinesandi = this.tweens.createTimeline();
+                    this.timelinesandi.add({
+                        targets: [sandi],
+                        x: this.container.x + 200,
+                        scaleX: 2,
+                        scaleY: 2,
+                        duration: 500,
+                    });
+                    this.timelinesandi.add({
+                        targets: [sandi],
+                        x: 1300,
+                        duration: 5000,
+                    });
+                    this.timelinesandi.play();
+
                 }
 
-                this.timelinesandi = this.tweens.createTimeline();
-                this.timelinesandi.add({
-                    targets: [sandi],
-                    x: 1500,
-                    scaleX: 1.5,
-                    scaleY: 1.5,
-                    duration: 5000,
-                });
-                this.timelinesandi.play();
+               
                 //this.disparo = !this.disparo;  
         });            
     },this);
@@ -318,14 +346,7 @@ class Bootloader extends Phaser.Scene{
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
-               /* this.timeline = this.tweens.createTimeline();
-               this.timeline.add({
-                   targets: [mun],
-                   x: -10,
-                   duration: 5000,
-                   
-               });
-               this.timeline.play();*/
+               
                enemigo1.anims.play('disparare2');
                console.log("Hola");
                
@@ -421,6 +442,10 @@ class Bootloader extends Phaser.Scene{
             }
             if(potenciador.texture.key == "calabaza")
             {
+                enemigo.setVelocity(0);
+                enemigo.setAcceleration(0);
+                setTimeout(()=>{potenciador.body.destroy();},10); 
+                
                 potenciador.anims.play('explotar',true);
                 potenciador.on('animationcomplete-explotar', ()=>{
                 potenciador.destroy();
@@ -428,16 +453,76 @@ class Bootloader extends Phaser.Scene{
                 });
                 enemigo.setTint(0xff0000);
                 setTimeout(()=>{enemigo.setTint()},150); 
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,25,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 25);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 25 <= 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 25);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x - 25;
+                        linea.width = vida - 25;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
             }
             if(potenciador.texture.key == "papaya")
             {
-                potenciador.anims.play('colision',true);
-                potenciador.on('animationcomplete-colision', ()=>{
-                potenciador.destroy();
-                console.log('eeeoo');
-                });
-                enemigo.setTint(0xff0000);
-                setTimeout(()=>{enemigo.setTint()},150); 
+                enemigo.setVelocity(0);
+                enemigo.setAcceleration(0);
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 50);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 100 < 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 100);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x-25;
+                        linea.width = vida - 100;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
             }
         });
           
@@ -500,6 +585,10 @@ class Bootloader extends Phaser.Scene{
     }
     update(time,delta)
     {
+        this.canion.x = 0;
+        this.canion.y = -33;
+        this.nave.x = 0;
+        this.nave.y = 0;
         if(this.vidanave < 0)
         {
             this.scene.destroy();
