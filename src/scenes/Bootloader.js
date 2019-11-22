@@ -31,7 +31,7 @@ class Bootloader extends Phaser.Scene{
         this.load.image('selector', 'selector.png');
         this.load.atlas('enemigo2', 'enemigo2_PP3/enemigo2.png','enemigo2_PP3/enemigo2_atlas.json');
         this.load.animation('enemigoo1', 'enemigo2_PP3/enemigo2_anim.json');
-        this.load.image('vida','barra_vida/barra_vida00.png');
+        this.load.image('vida','Barra_Vida.png');
         this.load.image('+vida','+vida.png');
         this.load.image('corazon','corazonvida.png');
         this.load.atlas('sandia', 'sandia_PP3/sandia.png','sandia_PP3/sandia_atlas.json');
@@ -51,7 +51,7 @@ class Bootloader extends Phaser.Scene{
         //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
         //this.graphics.fillRectShape(this.life_bar);
         //this.graphics.setDepth(7);
-        
+        this.vidanave = 90;
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
@@ -62,17 +62,25 @@ class Bootloader extends Phaser.Scene{
         this.nombre.setOrigin(.5,0);
         this.nombre.setDepth(6);
         this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
-        this.corazon = this.add.image(6,110,'corazon').setOrigin(0).setScale(1.7);
+        this.barravida = this.add.graphics({
+            fillStyle:{color: 0xDA161C}
+        })
+        this.vida_nave = new Phaser.Geom.Rectangle(15,15,15,this.vidanave);
+        this.barravida.fillRectShape(this.vida_nave);
+        this.barravida.setDepth(7);
+        this.corazon = this.add.image(6,120,'corazon').setOrigin(0).setScale(1.7);
 
         this.score = this.add.text(100, 20, 'Score: 000000000', {
             fontSize: 20
         });
         
 
+        
+
         this.drops = this.physics.add.group();
 
         this.droper= this.time.addEvent({
-            delay: 20000,                // ms
+            delay: 2000,                // ms
             callback: () =>  {
                 var ale = Phaser.Math.Between(0, 8);
                 var lugar =  Phaser.Math.Between(50, 400);
@@ -147,8 +155,10 @@ class Bootloader extends Phaser.Scene{
 
 
         this.municion =  this.physics.add.group();
+        this.municion2 = this.physics.add.group();
         this.container = this.add.container(100, 200);
         this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
+        this.nave.setMass(10);
         this.nave.setSize(58,48);
         this.nave.setOffset(3,0)
         this.nave.setCollideWorldBounds(true);
@@ -255,9 +265,8 @@ class Bootloader extends Phaser.Scene{
 
          });
         this.nave.anims.play('vuelo');
-        this.canion.anims.play('carga')
+        this.canion.anims.play('carga');
         
-
         this.palatano = this.physics.add.group();
         console.log(this.palatano);
         this.timer= this.time.addEvent({
@@ -308,18 +317,10 @@ class Bootloader extends Phaser.Scene{
             enemigo1.setScale(.2).setFlipX(1);
             enemigo1.anims.play('disparare2');
             enemigo1.on('animationcomplete',()=>{
-               var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
-                this.timeline = this.tweens.createTimeline();
-               this.timeline.add({
-                   targets: [mun],
-                   x: -10,
-                   duration: 5000,
-                   
-               });
-               this.timeline.play();
+            var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+               mun.body.setVelocityX(-100);
                enemigo1.anims.play('disparare2');
                console.log("Hola");
-               
            },this);
         });
 
@@ -457,7 +458,14 @@ class Bootloader extends Phaser.Scene{
         });
           
         this.physics.add.collider(this.municion,this.nave,(nave,municion)=> {
-             municion.destroy();
+            this.vidanave -= 1;
+            this.vida_nave.height = this.vidanave;
+            this.barravida.clear();
+            this.barravida.fillRectShape(this.vida_nave)
+           nave.setVelocity(0);
+            nave.setAcceleration(0);
+         
+            municion.destroy();
             nave.setTint(0xff0000);
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
@@ -484,6 +492,12 @@ class Bootloader extends Phaser.Scene{
                 case "calabaza":
                     this.cont2.text = parseInt(this.cont2.text) + 1;
                     break;
+                case "+vida":
+                    this.vidanave = 90;
+                    this.vida_nave.height = this.vidanave;
+                    this.barravida.clear();
+                    this.barravida.fillRectShape(this.vida_nave);
+                    break;
             } 
             drops.destroy();
             nave.setTint(0x1ADC03);
@@ -498,6 +512,10 @@ class Bootloader extends Phaser.Scene{
     
     update(time,delta)
     {
+        if(this.vidanave < 0)
+        {
+            this.scene.destroy();
+        }
         if( this.flechas.left.isDown ){
             if(this.container.x - 4 > 0) 
             {
@@ -544,21 +562,44 @@ class Bootloader extends Phaser.Scene{
         {
             this.papayaselec.setTint(0x5C5A63);
         }
+        else{
+            this.papayaselec.setTint();
+        }
         if(this.cont1.text == 0)
         {
             this.sandiaselec.setTint(0x5C5A63);
+        }
+        else{
+            this.sandiaselec.setTint();
         }
         if(this.cont2.text == 0)
         {
             this.calabazaselec.setTint(0x5C5A63);
         }
+        else{
+            this.calabazaselec.setTint();
+        }
 
         if(this.navesenemegiasdead == 5)
         {
             this.oleada();
+            this.oleada1_Aux();
+            this.disparar();
             this.navesenemegiasdead++;
         }
+        if(this.navesenemegiasdead == 15)
+        {
+            this.navesenemegiasdead++;
+            this.oleada2_Aux();
+            /*setTimeout(()=>
+            {
+                 this.oleada2_Aux();
+             },10000)*/
+             
+        }
+        
     }
+
     oleada(){
         this.grupo.createMultiple({
             key: 'enemigo2',
@@ -569,31 +610,9 @@ class Bootloader extends Phaser.Scene{
                stepY: 72
             }             
         });
-
-        
-
-        this.grupo.children.iterate( (enemigo1) => {
-            enemigo1.setScale(.2).setFlipX(1);
-            enemigo1.anims.play('disparare2');
-            enemigo1.on('animationcomplete',()=>{
-               var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
-                this.timeline = this.tweens.createTimeline();
-               this.timeline.add({
-                   targets: [mun],
-                   x: -10,
-                   duration: 5000,
-                   
-               });
-               this.timeline.play();
-               enemigo1.anims.play('disparare2');
-               console.log("Hola");
-               
-           },this);
-        });
-
         this.add.tween({
             targets: this.grupo.getChildren()[2],
-            x: 600,
+            x: 800,
            duration: 2000,
            ease: 'Power1',
         });
@@ -609,7 +628,7 @@ class Bootloader extends Phaser.Scene{
         this.timelineO = this.tweens.createTimeline()
         this.timelineO.add({
             targets: [this.grupo.getChildren()[0], this.grupo.getChildren()[4]],
-            x: 800,
+            x: 600,
             duration: 2000,
             ease: 'Power1'
         })
@@ -618,6 +637,97 @@ class Bootloader extends Phaser.Scene{
         this.timelineO.play();
         
     }
+
+    oleada1_Aux()
+    {
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 3,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+
+       
+        this.timelineN = this.tweens.createTimeline()
+        this.timelineN.add({
+            targets: this.grupo.getChildren()[6],
+            x: 900,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineO = this.tweens.createTimeline()
+        this.timelineO.add({
+            targets: this.grupo.getChildren()[5],
+            x: 1000,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.timelineP = this.tweens.createTimeline()
+        this.timelineP.add({
+            targets: this.grupo.getChildren()[7],
+            x:900,
+            y:316,
+            ease: 'Power1'
+
+        })
+
+        this.timelineQ = this.tweens.createTimeline()
+        this.timelineQ.add({
+            targets: this.grupo.getChildren()[8],
+            x:1000,
+            y:388,
+            ease: 'Power1'
+
+        })
+        this.timelineN.play();
+        this.timelineO.play();
+        this.timelineP.play();
+        this.timelineQ.play();
+    }
+
+    oleada2_Aux(){
+        this.oleada();
+
+        this.grupo.createMultiple({
+            key: 'enemigo2',
+            repeat: 4,
+            setXY:{
+               x:1200,
+               y: 100,
+               stepY: 72
+            }             
+        });
+
+        this.timelineR = this.tweens.createTimeline()
+        this.timelineR.add({
+            targets: this.grupo.getChildren(),
+            x: 1000,
+            duration: 2000,
+            ease: 'Power1'
+        })
+
+        this.disparar();
+
+    }
+
+    disparar(){
+        this.grupo.children.iterate( (enemigo1) => {
+            enemigo1.setScale(.2).setFlipX(1);
+            enemigo1.anims.play('disparare2');
+            enemigo1.on('animationcomplete',()=>{
+                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+               mun.body.setVelocityX(-100);
+               enemigo1.anims.play('disparare2');
+               console.log("Hola");
+           },this);
+        });
+    }
+    
 }
 
 
