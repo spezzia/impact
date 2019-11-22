@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "asteroide_exp",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 6,
+            "frames": [
+                {
+                    "key": "asteroide",
+                    "frame": "asteroide0"
+                },
+                {
+                    "key": "asteroide",
+                    "frame": "asteroide1"
+                },
+                {
+                    "key": "asteroide",
+                    "frame": "asteroide2"
+                },
+                {
+                    "key": "asteroide",
+                    "frame": "asteroide3"
+                }
+            ]
+        }
+    ]
+}

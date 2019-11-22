@@ -2,7 +2,7 @@ var direccion;
 class nivel2 extends Phaser.Scene{
     constructor(direccion){
         super({
-            key:"Bootloader" // Nombre interno o clave de referencia
+            key:"niverl2" // Nombre interno o clave de referencia
         });
         this.cargar= "Cargando";
         this.disparo = true;

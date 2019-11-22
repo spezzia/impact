@@ -1,5 +1,6 @@
 import Bootloader from "./scenes/Bootloader.js";
 import nivel2 from "./scenes/nivel2.js";
+import Control from "./scenes/Control.js";
 
 const config = {
     title: "Curso Phaser",  //Nombre del juego (opcional)
@@ -18,7 +19,7 @@ const config = {
     parent: "contenedor",   //Nombre del id del elemento <div> enel index.html// se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: false, //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#34495e", //Color de fondo del canvas ()
-    scene: [Bootloader],  // Aqui ira la lista  de scenas del juego
+    scene: [Control,Bootloader,nivel2],  // Aqui ira la lista  de scenas del juego
     banner:{
         hidePhaser: true,//ocultar leyendaPhasery versión
         text: "#fff00f",//cambiar color de texto

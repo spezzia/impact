@@ -1,0 +1,60 @@
+{
+    "frames": [
+        {
+            "filename": "asteroide0",
+            "frame": {
+                "x": 1,
+                "y": 1,
+                "w": 250,
+                "h": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "asteroide1",
+            "frame": {
+                "x": 253,
+                "y": 1,
+                "w": 250,
+                "h": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "asteroide2",
+            "frame": {
+                "x": 505,
+                "y": 1,
+                "w": 250,
+                "h": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "asteroide3",
+            "frame": {
+                "x": 757,
+                "y": 1,
+                "w": 250,
+                "h": 250
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

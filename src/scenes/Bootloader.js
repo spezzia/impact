@@ -7,11 +7,20 @@ class Bootloader extends Phaser.Scene{
         this.cargar= "Cargando";
         this.disparo = true;
     }
-    init()
+    init(data)
     {
         console.log("Soy init");
-        direccion = true;
-        
+        this.cont1 = data.cont1;
+        this.cont2 = data.cont2;
+        this.cont3 = data.cont3;
+        this.sandiaselec = data.sandi;
+        this.calabazaselec = data.cala;
+        this.papayaselec = data.papa;
+        this.selector = data.sele;
+        this.vidanave = data.vidanave;
+        this.barravida = data.barra;
+        this.vida_nave = data.vida_na;
+
     }
     preload()
     {
@@ -40,19 +49,18 @@ class Bootloader extends Phaser.Scene{
         this.load.animation('calabazaa', 'calabaza_PP3/calabaza_anim.json');
         this.load.atlas('papaya', 'papaya_PP3/papaya.png','papaya_PP3/papaya_atlas.json');
         this.load.animation('papayaa', 'papaya_PP3/papaya_anim.json');
+        this.load.atlas('asteroide', 'asteroide_PP3/asteroide.png','asteroide_PP3/asteroide_atlas.json');
+        this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');
         
     }
 
     create()
     {
-
-
-        
+        const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
         //this.graphics.fillRectShape(this.life_bar);
         //this.graphics.setDepth(7);
-        this.vidanave = 90;
-        const keyCodes = Phaser.Input.Keyboard.KeyCodes;
+       /* this.vidanave = 90;
         this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
         this.fondo.setScale(.5);
@@ -73,7 +81,7 @@ class Bootloader extends Phaser.Scene{
         this.score = this.add.text(100, 20, 'Score: 000000000', {
             fontSize: 20
         });
-        
+        */
 
         
 
@@ -146,6 +154,18 @@ class Bootloader extends Phaser.Scene{
                         }
                         break;
                     default:
+                            this.asteroide = this.drops.create(1250,lugar,'asteroide').setScale(.2);
+                            this.asteroide.body.setSize(200,200,0);
+                            this.asteroide.body.setOffset(50,20);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.asteroide],
+                                x: -100,
+                                rotation:  -20 * Math.PI,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
+
                         break;
                     
                 }  
@@ -253,7 +273,7 @@ class Bootloader extends Phaser.Scene{
         });            
     },this);
 
-        this.contenedor2 = this.add.container(10,420);
+       /* this.contenedor2 = this.add.container(10,420);
 
         this.sandiaselec = this.add.image(0, 0, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
         this.calabazaselec = this.add.image(60, 0, 'calabaza').setOrigin(0).setScale(1.2);
@@ -269,12 +289,6 @@ class Bootloader extends Phaser.Scene{
             fontSize: 20
         });
 
-        console.log(this.papayaselec.texture.key);
-
-        this.teclaA = this.input.keyboard.addKey(keyCodes.A);
-        this.teclaD = this.input.keyboard.addKey(keyCodes.D);
-        this.teclaS = this.input.keyboard.addKey(keyCodes.S);
-
         this.contenedor2.add([
             this.sandiaselec,
             this.calabazaselec,
@@ -283,7 +297,14 @@ class Bootloader extends Phaser.Scene{
             this.cont1,
             this.cont2,
             this.cont3
-        ]);
+        ]);*/
+
+        //console.log(this.papayaselec.texture.key);
+
+        this.teclaA = this.input.keyboard.addKey(keyCodes.A);
+        this.teclaD = this.input.keyboard.addKey(keyCodes.D);
+        this.teclaS = this.input.keyboard.addKey(keyCodes.S);
+
         
 
          this.canion.on('animationcomplete-disparo', ()=>{
@@ -346,7 +367,6 @@ class Bootloader extends Phaser.Scene{
             enemigo1.on('animationcomplete',()=>{
                var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
-               
                enemigo1.anims.play('disparare2');
                console.log("Hola");
                
@@ -531,7 +551,7 @@ class Bootloader extends Phaser.Scene{
             this.vida_nave.height = this.vidanave;
             this.barravida.clear();
             this.barravida.fillRectShape(this.vida_nave)
-           nave.setVelocity(0);
+            nave.setVelocity(0);
             nave.setAcceleration(0);
             municion.destroy();
             nave.setTint(0xff0000);
@@ -566,6 +586,12 @@ class Bootloader extends Phaser.Scene{
                     this.barravida.clear();
                     this.barravida.fillRectShape(this.vida_nave);
                     break;
+                case "asteroide":
+                        this.vidanave -= 20;
+                        this.vida_nave.height = this.vidanave;
+                        this.barravida.clear();
+                        this.barravida.fillRectShape(this.vida_nave)
+                    break;
             } 
             drops.destroy();
             nave.setTint(0x1ADC03);
@@ -589,10 +615,7 @@ class Bootloader extends Phaser.Scene{
         this.canion.y = -33;
         this.nave.x = 0;
         this.nave.y = 0;
-        if(this.vidanave < 0)
-        {
-            this.scene.destroy();
-        }
+        
         if( this.flechas.left.isDown ){
             if(this.container.x - 4 > 0) 
             {
@@ -655,7 +678,8 @@ class Bootloader extends Phaser.Scene{
         }
         else{
             this.calabazaselec.setTint();
-        }
+        } 
+        
     }
     
 }
