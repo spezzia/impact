@@ -91,7 +91,7 @@ class Control extends Phaser.Scene{
             this.cont3
         ]);
         this.sceneB = this.scene.launch('Bootloader',{
-            cont1:this.contenedor2,
+            cont1:this.cont1,
             cont2:this.cont2,
             cont3:this.cont3,
             sandi:this.sandiaselec,

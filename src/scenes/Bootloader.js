@@ -201,6 +201,9 @@ class Bootloader extends Phaser.Scene{
         this.flechas = this.input.keyboard.createCursorKeys();
         this.canion.on('animationcomplete-carga',()=>{
              this.flechas.space.on('down', () => {
+                 console.log(this.selector.x);
+                 console.log(this.cont1.text);
+                 
                 if(this.selector.x == 35 && this.cont1.text > 0)
                 {
                     this.flechas.space.destroy();
@@ -441,9 +444,6 @@ class Bootloader extends Phaser.Scene{
 
         this.physics.add.collider(this.potenciador, this.grupo,(potenciador, enemigo)=>{
             
-
-
-
             if(potenciador.texture.key == "sandia")
             {
                 potenciador.anims.play('destruccion',true);
