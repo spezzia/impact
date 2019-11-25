@@ -230,16 +230,16 @@ class Bootloader extends Phaser.Scene{
                     var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'calabaza').setScale(.5);  
                     sandi.setBounce(0.2);
                     sandi.setCollideWorldBounds(false);
-                    sandi.body.setSize(45,45,0);
-                    sandi.body.setOffset(10,10);
+                    sandi.body.setSize(45,35,0);
+                    sandi.body.setOffset(10,15);
                     this.cont2.text = this.cont2.text - 1;
                     this.canion.anims.play('disparo');
                     this.timelinesandi = this.tweens.createTimeline();
                     this.timelinesandi.add({
                         targets: [sandi],
                         x: this.container.x + 200,
-                        scaleX: 3,
-                        scaleY: 3,
+                        scaleX: 2,
+                        scaleY: 2,
                         duration: 500,
                         onCompleat: () => {
                             sandi.body.setVelocityX(300);
@@ -253,16 +253,16 @@ class Bootloader extends Phaser.Scene{
                     var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'papaya').setScale(.5);  
                     sandi.setBounce(0.2);
                     sandi.setCollideWorldBounds(false);
-                    sandi.body.setSize(45,45,0);
-                    sandi.body.setOffset(10,10);
+                    sandi.body.setSize(25,40,0);
+                    sandi.body.setOffset(20,20);
                     this.canion.anims.play('disparo');
                     this.cont3.text = this.cont3.text - 1;
                     this.timelinesandi = this.tweens.createTimeline();
                     this.timelinesandi.add({
                         targets: [sandi],
                         x: this.container.x + 200,
-                        scaleX: 2,
-                        scaleY: 2,
+                        scaleX: 1.5,
+                        scaleY: 1.5,
                         duration: 500,
                     });
                     this.timelinesandi.add({
@@ -905,7 +905,7 @@ class Bootloader extends Phaser.Scene{
             enemigo1.on('animationcomplete',()=>{
             var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
-               console.log("hora:"+ora);
+               console.log("hora:");
                
                setTimeout(()=>{enemigo1.anims.play('disparare2')},Phaser.Math.Between(0,1500)); 
                
