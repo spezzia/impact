@@ -663,13 +663,17 @@ class Bootloader extends Phaser.Scene{
         if(this.navesenemegiasdead == 15)
         {
             this.navesenemegiasdead++;
+            this.oleada();
             this.oleada2_Aux();
+            this.disparar();
         }
          
         if(this.navesenemegiasdead == 26)
         {
             this.navesenemegiasdead++;
             this.oleada3_Aux();
+            this.oleada2_Aux();
+            this.disparar();
         }
         
     }
@@ -765,8 +769,6 @@ class Bootloader extends Phaser.Scene{
     }
 
     oleada2_Aux(){
-        this.oleada();
-
         this.grupo.createMultiple({
             key: 'enemigo2',
             repeat: 4,
@@ -785,11 +787,12 @@ class Bootloader extends Phaser.Scene{
             ease: 'Power1'
         })
 
-        this.disparar();
-
     }
 
+   
+
     oleada3_Aux(){
+        
         this.grupo.createMultiple({
             key: 'enemigo2',
             repeat: 6,
@@ -834,12 +837,6 @@ class Bootloader extends Phaser.Scene{
         this.timelineN.play();
         this.timelineO.play();
         this.timelineP.play();
-
-        this.disparar();
-    }
-
-    horadisparo() {
-       
     }
 
     disparar(){
