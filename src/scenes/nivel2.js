@@ -1,16 +1,24 @@
-var direccion;
 class nivel2 extends Phaser.Scene{
     constructor(direccion){
         super({
-            key:"niverl2" // Nombre interno o clave de referencia
+            key:"nivel2" // Nombre interno o clave de referencia
         });
         this.cargar= "Cargando";
         this.disparo = true;
     }
-    init()
+    init(data)
     {
         console.log("Soy init");
-        direccion = true;
+        this.cont1 = data.cont1;
+        this.cont2 = data.cont2;
+        this.cont3 = data.cont3;
+        this.sandiaselec = data.sandi;
+        this.calabazaselec = data.cala;
+        this.papayaselec = data.papa;
+        this.selector = data.sele;
+        this.vidanave = data.vidanave;
+        this.barravida = data.barra;
+        this.vida_nave = data.vida_na;
         
     }
     preload()
@@ -49,19 +57,9 @@ class nivel2 extends Phaser.Scene{
     {
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
-       this.fondo = this.add.image(0,0,"fondo");
-        this.fondo.setOrigin(0,0);
-        this.fondo.setScale(.5);
-        this.fondo.setDepth(0);
+         
         this.rose = this.add.image(1100,350,'rose').setScale(1.25);
-        this.nombre = this.add.image(625,10,'nombre').setScale(.7);
-        this.nombre.setOrigin(.5,0);
-        this.nombre.setDepth(6);
-        this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
-        this.corazon = this.add.image(6,110,'corazon').setOrigin(0).setScale(1.7);
-        this.masvida = this.physics.add.sprite(625,0,'+vida').setScale(.7);
-        this.masvida.body.setGravityY(30);
-        this.masvida.body.setGravityX(10);
+      
 
         this.navesenemegiasdead = 0;
         this.drops = this.physics.add.group();
@@ -152,83 +150,6 @@ class nivel2 extends Phaser.Scene{
            loop:true
         });
 
-
-
-
-        this.municion =  this.physics.add.group();
-
-        this.container = this.add.container(100, 200);
-        this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
-        this.nave.setSize(58,48);
-        this.nave.setOffset(3,0)
-        this.nave.setCollideWorldBounds(true);
-
-        
-
-        this.container.add([
-            this.nave
-        ])
-        this.flechas = this.input.keyboard.createCursorKeys();
-        this.canion = this.physics.add.sprite( 0 , -33 , 'canion').setScale(1.4);
-        this.canion.setBounce(0.1);
-        this.canion.setSize(56,10);
-        this.canion.setOffset(4,23);
-        this.canion.setCollideWorldBounds(true);
-        this.container.add([
-            this.canion
-        ])
-        this.potenciador = this.physics.add.group();
-        this.flechas = this.input.keyboard.createCursorKeys();
-        this.canion.on('animationcomplete-carga',()=>{
-             this.flechas.space.on('down', () => {
-                
-                
-                if(this.selector.x == 35 && this.cont1.text > 0)
-                {
-                    this.flechas.space.destroy();
-                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
-                    sandi.setBounce(0.2);
-                    sandi.setCollideWorldBounds(false);
-                    sandi.body.setSize(45,45,0);
-                    sandi.body.setOffset(10,10);
-                    this.cont1.text = this.cont1.text - 1;
-                    this.canion.anims.play('disparo');
-                }
-                if( this.selector.x == 100 && this.cont2.text > 0)
-                {
-                    this.flechas.space.destroy();
-                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'calabaza').setScale(.5);  
-                    sandi.setBounce(0.2);
-                    sandi.setCollideWorldBounds(false);
-                    sandi.body.setSize(45,45,0);
-                    sandi.body.setOffset(10,10);
-                    this.cont2.text = this.cont2.text - 1;
-                    this.canion.anims.play('disparo');
-                }
-                if( this.selector.x == 160 && this.cont3.text > 0)
-                {
-                    this.flechas.space.destroy();
-                    var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'papaya').setScale(.5);  
-                    sandi.setBounce(0.2);
-                    sandi.setCollideWorldBounds(false);
-                    sandi.body.setSize(45,45,0);
-                    sandi.body.setOffset(10,10);
-                    this.canion.anims.play('disparo');
-                    this.cont3.text = this.cont3.text - 1;
-                }
-
-                this.timelinesandi = this.tweens.createTimeline();
-                this.timelinesandi.add({
-                    targets: [sandi],
-                    x: 1500,
-                    scaleX: 1.5,
-                    scaleY: 1.5,
-                    duration: 5000,
-                });
-                this.timelinesandi.play();
-                //this.disparo = !this.disparo;  
-        });            
-    },this);
     this.municion =  this.physics.add.group();
     this.municion2 = this.physics.add.group();
     this.container = this.add.container(100, 200);
@@ -709,6 +630,11 @@ class nivel2 extends Phaser.Scene{
     }
     update(time,delta)
     {
+        this.canion.x = 0;
+        this.canion.y = -33;
+        this.nave.x = 0;
+        this.nave.y = 0;
+        
         if( this.flechas.left.isDown ){
             if(this.container.x - 4 > 0) 
             {
