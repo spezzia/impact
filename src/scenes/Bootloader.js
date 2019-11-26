@@ -57,36 +57,7 @@ class Bootloader extends Phaser.Scene{
     create()
     {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
-
         this.navesenemegiasdead = 0;
-        //this.life_bar = new Phaser.Geom.Rectangle(20,20,vida_e,50);
-        //this.graphics.fillRectShape(this.life_bar);
-        //this.graphics.setDepth(7);
-       /* this.vidanave = 90;
-        this.fondo = this.add.image(0,0,"fondo");
-        this.fondo.setOrigin(0,0);
-        this.fondo.setScale(.5);
-        this.fondo.setDepth(0);
-        this.rose = this.add.image(1250,400,'rose').setScale(.7);
-        this.nombre = this.add.image(625,10,'nombre').setScale(.7);
-        this.nombre.setOrigin(.5,0);
-        this.nombre.setDepth(6);
-        this.vida = this.add.image(10,10,'vida').setOrigin(0).setScale(.5);
-        this.barravida = this.add.graphics({
-            fillStyle:{color: 0xDA161C}
-        })
-        this.vida_nave = new Phaser.Geom.Rectangle(15,15,15,this.vidanave);
-        this.barravida.fillRectShape(this.vida_nave);
-        this.barravida.setDepth(7);
-        this.corazon = this.add.image(6,120,'corazon').setOrigin(0).setScale(1.7);
-
-        this.score = this.add.text(100, 20, 'Score: 000000000', {
-            fontSize: 20
-        });
-        */
-
-        
-
         this.drops = this.physics.add.group();
 
         this.droper= this.time.addEvent({
@@ -279,33 +250,7 @@ class Bootloader extends Phaser.Scene{
         });            
     },this);
 
-       /* this.contenedor2 = this.add.container(10,420);
-
-        this.sandiaselec = this.add.image(0, 0, 'sandia').setOrigin(0).setFlipX(1).setScale(1.2);
-        this.calabazaselec = this.add.image(60, 0, 'calabaza').setOrigin(0).setScale(1.2);
-        this.papayaselec = this.add.image(120, 0, 'papaya').setOrigin(0).setScale(1.2);
-        this.selector = this.add.image(35, 65, 'selector').setScale(1.6);
-        this.cont1 = this.add.text(55, 0, '3', {
-            fontSize: 20
-        });
-        this.cont2 = this.add.text(110, 0, '3', {
-            fontSize: 20
-        });
-        this.cont3 = this.add.text(165, 0, '3', {
-            fontSize: 20
-        });
-
-        this.contenedor2.add([
-            this.sandiaselec,
-            this.calabazaselec,
-            this.papayaselec,
-            this.selector,
-            this.cont1,
-            this.cont2,
-            this.cont3
-        ]);*/
-
-        //console.log(this.papayaselec.texture.key);
+       
 
         this.teclaA = this.input.keyboard.addKey(keyCodes.A);
         this.teclaD = this.input.keyboard.addKey(keyCodes.D);
