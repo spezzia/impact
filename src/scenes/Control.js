@@ -1,3 +1,4 @@
+
 var direccion;
 class Control extends Phaser.Scene{
     constructor(direccion){
