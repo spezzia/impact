@@ -24,7 +24,7 @@ class Bootloader extends Phaser.Scene{
     }
     preload()
     {
-        this.load.path="./assets/"; // Rutas de todas las imaganes
+        /*this.load.path="./assets/"; // Rutas de todas las imaganes
         this.load.image("fondo","universo.jpg"); //  alias y archivo
         this.load.image("rose","rose1.png"); //  alias y archivo
         this.load.image("nombre",'nombre.png');
@@ -50,7 +50,7 @@ class Bootloader extends Phaser.Scene{
         this.load.atlas('papaya', 'papaya_PP3/papaya.png','papaya_PP3/papaya_atlas.json');
         this.load.animation('papayaa', 'papaya_PP3/papaya_anim.json');
         this.load.atlas('asteroide', 'asteroide_PP3/asteroide.png','asteroide_PP3/asteroide_atlas.json');
-        this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');
+        this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');*/
         
     }
 

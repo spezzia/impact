@@ -1,5 +1,3 @@
-
-var direccion;
 class Control extends Phaser.Scene{
     constructor(direccion){
         super({
@@ -8,7 +6,6 @@ class Control extends Phaser.Scene{
     }
     init()
     {
-        
     }
     preload()
     {
@@ -91,7 +88,7 @@ class Control extends Phaser.Scene{
             this.cont2,
             this.cont3
         ]);
-        this.sceneB = this.scene.launch('Bootloader',{
+        this.sceneB = this.scene.launch('nivel2',{
             cont1:this.cont1,
             cont2:this.cont2,
             cont3:this.cont3,
