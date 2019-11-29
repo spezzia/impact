@@ -1,4 +1,5 @@
 import Bootloader from "./scenes/Bootloader.js";
+import inicio from "./scenes/inicio.js";
 import nivel2 from "./scenes/nivel2.js";
 import Control from "./scenes/Control.js";
 
@@ -19,7 +20,7 @@ const config = {
     parent: "contenedor",   //Nombre del id del elemento <div> enel index.html// se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: false, //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#34495e", //Color de fondo del canvas ()
-    scene: [Control,Bootloader,nivel2],  // Aqui ira la lista  de scenas del juego
+    scene: [inicio,Control,Bootloader,nivel2],  // Aqui ira la lista  de scenas del juego
     banner:{
         hidePhaser: true,//ocultar leyendaPhasery versión
         text: "#fff00f",//cambiar color de texto
