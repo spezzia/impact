@@ -132,16 +132,19 @@ class nivel2 extends Phaser.Scene{
                     case 3:
                         if(this.cont3.text < 5)
                         {
-                            this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
-                            this.maspapaya.body.setSize(45,45,0);
-                            this.maspapaya.body.setOffset(10,10);
-                            this.droppear = this.tweens.createTimeline();
-                            this.droppear.add({
-                                targets: [this.maspapaya],
-                                x: -100,
-                                duration: 4000,
-                            });
-                            this.droppear.play();
+                            if(Phaser.Math.Between(0,2) == 0)
+                            {
+                                this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
+                                this.maspapaya.body.setSize(45,45,0);
+                                this.maspapaya.body.setOffset(10,10);
+                                this.droppear = this.tweens.createTimeline();
+                                this.droppear.add({
+                                    targets: [this.maspapaya],
+                                    x: -100,
+                                    duration: 4000,
+                                });
+                                this.droppear.play();
+                            }
                         }
                         break;
                     default:
