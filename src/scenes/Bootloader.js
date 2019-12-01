@@ -13,6 +13,7 @@ class Bootloader extends Phaser.Scene{
         this.cont1 = data.cont1;
         this.cont2 = data.cont2;
         this.cont3 = data.cont3;
+        this.puntos = data.puntos;
         this.sandiaselec = data.sandi;
         this.calabazaselec = data.cala;
         this.papayaselec = data.papa;
@@ -20,7 +21,7 @@ class Bootloader extends Phaser.Scene{
         this.vidanave = data.vidanave;
         this.barravida = data.barra;
         this.vida_nave = data.vida_na;
-
+        
     }
     preload()
     {
@@ -326,6 +327,7 @@ class Bootloader extends Phaser.Scene{
                
                console.log("Hola");
            },this);
+           
         });
 
         this.add.tween({
@@ -360,13 +362,14 @@ class Bootloader extends Phaser.Scene{
                 this.graphics = this.add.graphics({
                     fillStyle:{color: 0x1BFF00}
                 })
+                
+                
                 this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
                 this.graphics.fillRectShape(this.life_bar);
                 this.graphics.setDepth(7);
                 enemigo.setData('vida', 50);
                 enemigo.setData('linea',this.life_bar);
                 enemigo.setData('grafico',this.graphics);
-
             }else
             {
                 var vida = enemigo.getData('vida');
@@ -376,7 +379,6 @@ class Bootloader extends Phaser.Scene{
                    grafico.clear();
                    enemigo.destroy() ;
                    this.navesenemegiasdead++;
-                   
                 }else{
                     enemigo.setData('vida',vida - 20);
                     var linea = enemigo.getData('linea');
@@ -385,9 +387,11 @@ class Bootloader extends Phaser.Scene{
                     var grafico = enemigo.getData('grafico');
                     grafico.clear();
                     grafico.fillRectShape(linea);
+                    
                 }
             }
             platano.destroy();
+            this.puntos.text = parseInt(this.puntos.text) +25;
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
@@ -402,7 +406,8 @@ class Bootloader extends Phaser.Scene{
                 console.log('eeeoo');
                 });
                 enemigo.setTint(0xff0000);
-                setTimeout(()=>{enemigo.setTint()},150); 
+                setTimeout(()=>{enemigo.setTint()},150);
+
                 if(enemigo.getData('vida') == null)
                 {
                     this.graphics = this.add.graphics({
@@ -414,7 +419,7 @@ class Bootloader extends Phaser.Scene{
                     enemigo.setData('vida', 50);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-    
+                    this.puntos.text = parseInt(this.puntos.text) +50;
                 }else
                 {
                     var vida = enemigo.getData('vida');
@@ -460,7 +465,7 @@ class Bootloader extends Phaser.Scene{
                     enemigo.setData('vida', 25);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-
+                    this.puntos.text = parseInt(this.puntos.text) +75;
     
                 }else
                 {
@@ -498,7 +503,7 @@ class Bootloader extends Phaser.Scene{
                     enemigo.setData('vida', 50);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-    
+                    this.puntos.text = parseInt(this.puntos.text) +100;
                 }else
                 {
                     var vida = enemigo.getData('vida');
@@ -529,7 +534,7 @@ class Bootloader extends Phaser.Scene{
             this.barravida.fillRectShape(this.vida_nave)
             nave.setVelocity(0);
             nave.setAcceleration(0);
-         
+            this.puntos.text = parseInt(this.puntos.text) -25;
             municion.destroy();
             nave.setTint(0xff0000);
             this.canion.setTint(0xff0000);
