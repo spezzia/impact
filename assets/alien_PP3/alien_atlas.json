@@ -1,0 +1,47 @@
+{
+    "frames": [
+        {
+            "filename": "alien0",
+            "frame": {
+                "x": 1,
+                "y": 1,
+                "w": 400,
+                "h": 400
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "alien1",
+            "frame": {
+                "x": 403,
+                "y": 1,
+                "w": 400,
+                "h": 400
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "alien2",
+            "frame": {
+                "x": 805,
+                "y": 1,
+                "w": 400,
+                "h": 400
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Phaser3",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
