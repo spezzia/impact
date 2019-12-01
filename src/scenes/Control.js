@@ -64,9 +64,19 @@ class Control extends Phaser.Scene{
             font: "50px Arial"
         });
 
-        this.score = this.add.text(100, 20, 'Score: 000000000', {
+        this.contenedor1 = this.add.container(50,20);
+
+        this.score = this.add.text(0, 0, ' Score', {
             fontSize: 20
         });
+
+        this.puntos = this.add.text(80, 0, ' 0', {
+            fontSize: 20
+        });
+        this.contenedor1.add([
+            this.score,
+            this.puntos,
+        ]);
 
         
         this.contenedor2 = this.add.container(10,420);
@@ -86,6 +96,7 @@ class Control extends Phaser.Scene{
         });
 
         this.contenedor2.add([
+            
             this.sandiaselec,
             this.calabazaselec,
             this.papayaselec,
@@ -94,7 +105,9 @@ class Control extends Phaser.Scene{
             this.cont2,
             this.cont3
         ]);
-        this.sceneB = this.scene.launch('Bootloader',{
+        this.sceneB = this.scene.launch('nivel2',{
+       // this.sceneB = this.scene.launch('Bootloader',{
+            puntos:this.puntos,
             cont1:this.cont1,
             cont2:this.cont2,
             cont3:this.cont3,
@@ -107,9 +120,6 @@ class Control extends Phaser.Scene{
             vidanave: this.vidanave,
             text:  this.oleada,
         });
-        
-        
-        
 
     }
     update(time,delta)

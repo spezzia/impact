@@ -1,0 +1,24 @@
+{
+    "anims": [
+        {
+            "key": "alien_a",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 3,
+            "frames": [
+                {
+                    "key": "alien",
+                    "frame": "alien0"
+                },
+                {
+                    "key": "alien",
+                    "frame": "alien1"
+                },
+                {
+                    "key": "alien",
+                    "frame": "alien2"
+                }
+            ]
+        }
+    ]
+}
