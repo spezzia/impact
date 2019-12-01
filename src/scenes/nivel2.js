@@ -632,6 +632,7 @@ class nivel2 extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.potenciador, this.grupoe,(potenciador, enemigo)=>{
+            enemigo.setVelocity(0);
             
             if(potenciador.texture.key == "sandia")
             {
@@ -822,6 +823,23 @@ class nivel2 extends Phaser.Scene{
             this.nave.setVelocity(0);
             this.nave.setAcceleration(0);
         })
+
+        this.physics.add.collider(this.municion,this.palatano,(platano,municion)=> {
+            municion.destroy();
+            platano.destroy();
+        });
+
+        this.physics.add.collider(this.municion,this.potenciador,(potenciador,municion)=> {
+           potenciador.destroy();
+           municion.body.setVelocityX(300);
+        });
+
+        this.physics.add.collider(this.drops,this.potenciador,(potenciador,drops)=> {
+            if(potenciador.texture.key == "asteroide"){
+                potenciador.destroy();
+                drops.destroy();
+            }
+         });
 
         this.gfazo();
         
