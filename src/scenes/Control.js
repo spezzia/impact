@@ -11,6 +11,7 @@ class Control extends Phaser.Scene{
     {
         this.load.path="./assets/"; // Rutas de todas las imaganes
         this.load.image("fondo","universo.jpg"); //  alias y archivo
+        
         this.load.image("rose","rose1.png"); //  alias y archivo
         this.load.image("nombre",'nombre.png');
         this.load.atlas('canion', 'canion_PP3/canion.png','canion_PP3/canion_atlas.json');
@@ -36,6 +37,8 @@ class Control extends Phaser.Scene{
         this.load.animation('papayaa', 'papaya_PP3/papaya_anim.json');
         this.load.atlas('asteroide', 'asteroide_PP3/asteroide.png','asteroide_PP3/asteroide_atlas.json');
         this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');
+        this.load.atlas('naveelite', 'naveelite_PP3/naveelite.png', 'naveelite_PP3/naveelite_atlas.json');
+        this.load.animation('naveelite', 'naveelite_PP3/naveelite_anim.json');
         
     }
     create()
@@ -43,7 +46,7 @@ class Control extends Phaser.Scene{
         this.vidanave = 90;
         this.fondo = this.add.image(0,0,"fondo");
         this.fondo.setOrigin(0,0);
-        this.fondo.setScale(.5);
+        this.fondo.setScale(.7);
         this.fondo.setDepth(0);
         this.rose = this.add.image(1250,400,'rose').setScale(.7);
         this.nombre = this.add.image(625,10,'nombre').setScale(.7);
@@ -57,6 +60,9 @@ class Control extends Phaser.Scene{
         this.barravida.fillRectShape(this.vida_nave);
         this.barravida.setDepth(7);
         this.corazon = this.add.image(6,120,'corazon').setOrigin(0).setScale(1.7);
+        this.oleada = this.add.text(500, 225, 'Oleada 1', {
+            font: "50px Arial"
+        });
 
         this.score = this.add.text(100, 20, 'Score: 000000000', {
             fontSize: 20
@@ -88,7 +94,7 @@ class Control extends Phaser.Scene{
             this.cont2,
             this.cont3
         ]);
-        this.sceneB = this.scene.launch('nivel2',{
+        this.sceneB = this.scene.launch('Bootloader',{
             cont1:this.cont1,
             cont2:this.cont2,
             cont3:this.cont3,
@@ -98,7 +104,8 @@ class Control extends Phaser.Scene{
             sele: this.selector,
             barra: this.barravida,
             vida_na:this.vida_nave,
-            vidanave: this.vidanave
+            vidanave: this.vidanave,
+            text:  this.oleada,
         });
         
         

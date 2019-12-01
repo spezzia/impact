@@ -20,40 +20,12 @@ class Bootloader extends Phaser.Scene{
         this.vidanave = data.vidanave;
         this.barravida = data.barra;
         this.vida_nave = data.vida_na;
-
+        this.olea = data.text;
     }
     preload()
-    {
-        /*this.load.path="./assets/"; // Rutas de todas las imaganes
-        this.load.image("fondo","universo.jpg"); //  alias y archivo
-        this.load.image("rose","rose1.png"); //  alias y archivo
-        this.load.image("nombre",'nombre.png');
-        this.load.atlas('canion', 'canion_PP3/canion.png','canion_PP3/canion_atlas.json');
-        this.load.animation('canioon', 'canion_PP3/canion_anim.json');
-        this.load.atlas('nav', 'nav_PP3/nav.png','nav_PP3/nav_atlas.json');
-        this.load.animation('vueloo', 'nav_PP3/nav_anim.json');
-        this.load.image('platano','platano.png');
-        this.load.image('municion','MunicionNE1.png');
-        //this.load.image('sandia','sandia.png');
-        //this.load.image('CaLaBaZa', 'Calabaza.png');
-        this.load.image('papayades', 'Papayades.png');
-        this.load.image('selector', 'selector.png');
-        this.load.atlas('enemigo2', 'enemigo2_PP3/enemigo2.png','enemigo2_PP3/enemigo2_atlas.json');
-        this.load.animation('enemigoo1', 'enemigo2_PP3/enemigo2_anim.json');
-        this.load.image('vida','Barra_Vida.png');
-        this.load.image('+vida','+vida.png');
-        this.load.image('corazon','corazonvida.png');
-        this.load.atlas('sandia', 'sandia_PP3/sandia.png','sandia_PP3/sandia_atlas.json');
-        this.load.animation('sandiaa', 'sandia_PP3/sandia_anim.json');
-        this.load.atlas('calabaza', 'calabaza_PP3/calabaza.png','calabaza_PP3/calabaza_atlas.json');
-        this.load.animation('calabazaa', 'calabaza_PP3/calabaza_anim.json');
-        this.load.atlas('papaya', 'papaya_PP3/papaya.png','papaya_PP3/papaya_atlas.json');
-        this.load.animation('papayaa', 'papaya_PP3/papaya_anim.json');
-        this.load.atlas('asteroide', 'asteroide_PP3/asteroide.png','asteroide_PP3/asteroide_atlas.json');
-        this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');*/
-        
-    }
+    {    
 
+    }
     create()
     {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
@@ -127,14 +99,14 @@ class Bootloader extends Phaser.Scene{
                         }
                         break;
                     default:
-                            this.asteroide = this.drops.create(1250,lugar,'asteroide').setScale(.2);
+                            this.asteroide = this.drops.create(1250,this.container.y,'asteroide').setScale(.2);
                             this.asteroide.body.setSize(200,200,0);
                             this.asteroide.body.setOffset(50,20);
                             this.droppear = this.tweens.createTimeline();
                             this.droppear.add({
                                 targets: [this.asteroide],
                                 x: -100,
-                                rotation:  -20 * Math.PI,
+                                rotation:  -10 * Math.PI,
                                 duration: 4000,
                             });
                             this.droppear.play();
@@ -310,9 +282,23 @@ class Bootloader extends Phaser.Scene{
             }             
         });
 
-        
+        this.add.tween({
+            targets: this.olea,
+            x: 1100,
+            y: 25,
+            scaleX: .5,
+            scaleY: .5,
+           duration: 6000,
+           ease: 'Power1',
+           onCompleat: ()=>
+           {
+            this.timelineN.play();
+            this.timelineO.play();
+           }
+        });
 
         
+
         this.grupo.children.iterate( (enemigo1) => {
             
             enemigo1.setScale(.2).setFlipX(1);
@@ -351,8 +337,7 @@ class Bootloader extends Phaser.Scene{
             ease: 'Power1'
         })
 
-        this.timelineN.play();
-        this.timelineO.play();
+      
         
         this.physics.add.collider(this.palatano, this.grupo,(platano, enemigo) =>{
             if(enemigo.getData('vida') == null)
@@ -541,8 +526,18 @@ class Bootloader extends Phaser.Scene{
             platano.destroy();
         });
 
+        this.physics.add.collider(this.municion,this.potenciador,(potenciador,municion)=> {
+           potenciador.destroy();
+           municion.body.setVelocityX(300);
+        });
 
-
+        this.physics.add.collider(this.drops,this.potenciador,(potenciador,drops)=> {
+            if(potenciador.texture.key == "asteroide"){
+                potenciador.destroy();
+                drops.destroy();
+            }
+         });
+ 
 
          this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
          {
@@ -655,25 +650,83 @@ class Bootloader extends Phaser.Scene{
 
         if(this.navesenemegiasdead == 5)
         {
-            this.oleada();
-            this.oleada1_Aux();
-            this.disparar();
             this.navesenemegiasdead++;
+            this.olea.text = "Oleada 2";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+           
+           
+
+            setTimeout(()=>
+            {
+                this.oleada();
+                this.oleada1_Aux();
+                this.disparar();
+                
+            },2000)
+            
+           
         }
         if(this.navesenemegiasdead == 15)
         {
             this.navesenemegiasdead++;
-            this.oleada();
-            this.oleada2_Aux();
-            this.disparar();
+            this.olea.text = "Oleada 3";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+            setTimeout(()=>
+            {
+                this.oleada();
+                this.oleada2_Aux();
+                this.disparar();
+            },2000)
         }
          
         if(this.navesenemegiasdead == 26)
         {
             this.navesenemegiasdead++;
-            this.oleada3_Aux();
-            this.oleada2_Aux();
-            this.disparar();
+            this.olea.text = "Oleada 4";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+            setTimeout(()=>
+            {
+                this.oleada3_Aux();
+                this.oleada2_Aux();
+                this.disparar();
+            },2000)
+            
+        }
+        if(this.navesenemegiasdead == 39)
+        {
+            this.navesenemegiasdead++;
+            this.olea.text = "Oleada final";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+            setTimeout(()=>
+            {
+                //this.oleada3_Aux();
+                this.elite();
+                //this.disparar();
+            },2000)
         }
         
     }
@@ -839,6 +892,216 @@ class Bootloader extends Phaser.Scene{
         this.timelineP.play();
     }
 
+    elite()
+    {
+        this.grupoe=this.physics.add.group({
+            key: 'naveelite',
+            repeat: 1,
+            setXY: {
+                x:1000,
+                y:150,
+               stepY:150
+            }
+        });
+        
+
+        this.grupoe.children.iterate((elite) => {
+            elite.setScale(.5);
+            elite.setSize(110,140);
+            elite.setOffset(50, 25);
+            setTimeout(()=>{elite.anims.play('disparar')},Phaser.Math.Between(0,1500)); 
+            elite.on('animationcomplete',()=>{
+            var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
+               mun.body.setVelocityX(-100);
+               setTimeout(()=>{elite.anims.play('disparar')},Phaser.Math.Between(0,1500));                
+               console.log("Hola");
+           },this);
+        });
+        this.timelineE = this.tweens.createTimeline();
+        this.timelineE.add({
+            targets: this.grupoe.getChildren(),
+            ease: 'Power1',
+            x: 820,
+            
+            duration:2500,
+            
+            
+        })
+         this.timelineE.play();
+
+         this.physics.add.collider(this.palatano, this.grupoe,(platano, enemigo) =>{
+            console.log("colisiono");
+            
+            if(enemigo.getData('vida') == null)
+            {
+                this.graphics = this.add.graphics({
+                    fillStyle:{color: 0x1BFF00}
+                })
+                this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
+                this.graphics.fillRectShape(this.life_bar);
+                this.graphics.setDepth(7);
+                enemigo.setData('vida', 50);
+                enemigo.setData('linea',this.life_bar);
+                enemigo.setData('grafico',this.graphics);
+
+            }else
+            {
+                var vida = enemigo.getData('vida');
+                if(vida - 1 < 0)
+                {
+                    var grafico = enemigo.getData('grafico');
+                   grafico.clear();
+                   enemigo.destroy() ;
+                   this.navesenemegiasdead++;
+                   
+                }else{
+                    enemigo.setData('vida',vida - 1);
+                    var linea = enemigo.getData('linea');
+                    linea.x = enemigo.x-25;
+                    linea.width = vida - 1;
+                    var grafico = enemigo.getData('grafico');
+                    grafico.clear();
+                    grafico.fillRectShape(linea);
+                }
+            }
+            platano.destroy();
+            enemigo.setTint(0xff0000);
+            setTimeout(()=>{enemigo.setTint()},150); 
+        });
+
+        this.physics.add.collider(this.potenciador, this.grupoe,(potenciador, enemigo)=>{
+            
+            if(potenciador.texture.key == "sandia")
+            {
+                potenciador.body.destroy();
+                potenciador.anims.play('destruccion',true);
+                potenciador.on('animationcomplete-destruccion', ()=>{
+                potenciador.destroy();
+                
+                console.log('eeeoo');
+                });
+                enemigo.setTint(0xff0000);
+                setTimeout(()=>{enemigo.setTint()},150); 
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,25,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 25);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 25 <= 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       this.navesenemegiasdead++;
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 25);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x-25  ;
+                        linea.width = vida - 25;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
+            }
+            if(potenciador.texture.key == "calabaza")
+            {
+                enemigo.setVelocity(0);
+                enemigo.setAcceleration(0);
+                setTimeout(()=>{potenciador.body.destroy();},10); 
+                
+                potenciador.anims.play('explotar',true);
+                potenciador.on('animationcomplete-explotar', ()=>{
+                potenciador.destroy();
+                console.log('eeeoo');
+                });
+                enemigo.setTint(0xff0000);
+                setTimeout(()=>{enemigo.setTint()},150); 
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,38,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 38);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 12 <= 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       this.navesenemegiasdead++;
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 12);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x - 25;
+                        linea.width = vida - 12;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
+            }
+            if(potenciador.texture.key == "papaya")
+            {
+                enemigo.setVelocity(0);
+                enemigo.setAcceleration(0);
+                if(enemigo.getData('vida') == null)
+                {
+                    this.graphics = this.add.graphics({
+                        fillStyle:{color: 0x1BFF00}
+                    })
+                    this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
+                    this.graphics.fillRectShape(this.life_bar);
+                    this.graphics.setDepth(7);
+                    enemigo.setData('vida', 50);
+                    enemigo.setData('linea',this.life_bar);
+                    enemigo.setData('grafico',this.graphics);
+    
+                }else
+                {
+                    var vida = enemigo.getData('vida');
+                    if(vida - 100 < 0)
+                    {
+                        var grafico = enemigo.getData('grafico');
+                       grafico.clear();
+                       enemigo.destroy() ;
+                       this.navesenemegiasdead++;
+                       
+                    }else{
+                        enemigo.setData('vida',vida - 100);
+                        var linea = enemigo.getData('linea');
+                        linea.x = enemigo.x-25;
+                        linea.width = vida - 100;
+                        var grafico = enemigo.getData('grafico');
+                        grafico.clear();
+                        grafico.fillRectShape(linea);
+                    }
+                }
+            }
+        });
+    }
+
     disparar(){
         this.grupo.children.iterate( (enemigo1) => {
             
@@ -856,6 +1119,18 @@ class Bootloader extends Phaser.Scene{
         });
 
 
+    }
+    text()
+    {
+        this.add.tween({
+            targets: this.olea,
+            x: 1100,
+            y: 25,
+            scaleX: .5,
+            scaleY: .5,
+           duration: 6000,
+           ease: 'Power1'
+        });
     }
     
 }
