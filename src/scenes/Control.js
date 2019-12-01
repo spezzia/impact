@@ -121,6 +121,9 @@ class Control extends Phaser.Scene{
             text:  this.oleada,
         });
 
+
+        
+
     }
     update(time,delta)
     {

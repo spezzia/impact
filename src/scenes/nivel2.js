@@ -1083,13 +1083,16 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
     
     if(enemigo.getData('vida') == null)
     {
+        this.text1 = this.add.text(650, 420, 'Gfazo', {
+            fontSize: 20
+        });
         this.graphics = this.add.graphics({
-            fillStyle:{color: 0x1BFF00}
+            fillStyle:{color: 0xFF9D36}
         })
-        this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,100,5);
+        this.life_bar = new Phaser.Geom.Rectangle(400,450,500,15);
         this.graphics.fillRectShape(this.life_bar);
         this.graphics.setDepth(7);
-        enemigo.setData('vida', 100);
+        enemigo.setData('vida', 500);
         enemigo.setData('linea',this.life_bar);
         enemigo.setData('grafico',this.graphics);
 
@@ -1106,7 +1109,7 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
         }else{
             enemigo.setData('vida',vida - 1);
             var linea = enemigo.getData('linea');
-            linea.x = enemigo.x-25;
+            //linea.x = enemigo.x-25;
             linea.width = vida - 1;
             var grafico = enemigo.getData('grafico');
             grafico.clear();
