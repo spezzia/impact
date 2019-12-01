@@ -53,11 +53,22 @@ class nivel2 extends Phaser.Scene{
         this.load.atlas('jefe', 'jefe_PP3/jefe.png', 'jefe_PP3/jefe_atlas.json');
         this.load.animation('gfazo', 'jefe_PP3/jefe_anim.json');
         this.load.image('balazo', 'MunicionNE2.png');
+
+        this.load.audio('cargarcanion', 'sonidos/cargarcanion.mp3');
+        this.load.audio('potenciador1', 'sonidos/potenciador1.mp3');
+        this.load.audio('potenciador2', 'sonidos/potenciador2.mp3');
+        //this.load.audio('vocho', 'sonidos/vocho.mp3');
+        this.load.audio('sonidoe', 'sonidos/elite.mp3');
         
     }
 
     create()
     {
+        this.cargarcanion = this.sound.add('cargarcanion');
+        this.potenciador1 = this.sound.add('potenciador1');
+        this.potenciador2 = this.sound.add('potenciador2');
+        this.vocho = this.sound.add('vocho');
+        this.sonidoe = this.sound.add('sonidoe');
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.navesenemigasdead = 0;
@@ -157,6 +168,7 @@ class nivel2 extends Phaser.Scene{
     this.municion2 = this.physics.add.group();
     this.container = this.add.container(100, 200);
     this.nave = this.physics.add.sprite(0, 0, 'nav').setScale(1.4);
+    
     this.nave.setMass(10);
     this.nave.setSize(58,48);
     this.nave.setOffset(3,0)
@@ -177,12 +189,14 @@ class nivel2 extends Phaser.Scene{
     this.potenciador = this.physics.add.group();
     this.flechas = this.input.keyboard.createCursorKeys();
     this.canion.on('animationcomplete-carga',()=>{
+        
          this.flechas.space.on('down', () => {
              console.log(this.selector.x);
              console.log(this.cont1.text);
              
             if(this.selector.x == 35 && this.cont1.text > 0)
             {
+                this.potenciador1.play();
                 this.flechas.space.destroy();
                 var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
                 sandi.setBounce(0.2);
@@ -203,6 +217,7 @@ class nivel2 extends Phaser.Scene{
             }
             if( this.selector.x == 100 && this.cont2.text > 0)
             {
+                this.potenciador2.play();
                 this.flechas.space.destroy();
                 var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'calabaza').setScale(.5);  
                 sandi.setBounce(0.2);
@@ -220,6 +235,7 @@ class nivel2 extends Phaser.Scene{
                     duration: 500,
                     onCompleat: () => {
                         sandi.body.setVelocityX(300);
+                        
                     }
                 });
                 this.timelinesandi.play();
@@ -250,10 +266,11 @@ class nivel2 extends Phaser.Scene{
                 this.timelinesandi.play();
 
             }
-
+            
            
             //this.disparo = !this.disparo;  
-    });            
+    });  
+              
 },this);
 
    
@@ -267,7 +284,7 @@ class nivel2 extends Phaser.Scene{
      this.canion.on('animationcomplete-disparo', ()=>{
         this.flechas.space.destroy();
         this.canion.anims.play('carga');
-
+        this.cargarcanion.play(); 
      });
     this.nave.anims.play('vuelo');
     this.canion.anims.play('carga');
@@ -322,7 +339,7 @@ class nivel2 extends Phaser.Scene{
             var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
                setTimeout(()=>{enemigo1.anims.play('disparare2')},Phaser.Math.Between(0,1500));                               
-               console.log("Hola");
+               //console.log("Hola");
            },this);
         });
 
@@ -376,7 +393,7 @@ class nivel2 extends Phaser.Scene{
         
 
         this.grupoe.children.iterate((elite) => {
-
+            
             elite.setScale(.5);
             elite.setSize(110,140);
             elite.setOffset(50, 25);
@@ -385,7 +402,7 @@ class nivel2 extends Phaser.Scene{
             var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
                setTimeout(()=>{elite.anims.play('disparar')},Phaser.Math.Between(0,1500));                
-               console.log("Hola");
+              // console.log("Hola");
            },this);
         });
 
@@ -1010,7 +1027,7 @@ class nivel2 extends Phaser.Scene{
             var mun = this.municion.create(elite.x-60,elite.y,'municion').setScale(.1); 
                mun.body.setVelocityX(-100);
                setTimeout(()=>{elite.anims.play('disparar')},Phaser.Math.Between(0,1500));                
-               console.log("Hola");
+              // console.log("Hola");
            },this);
         });
     }
@@ -1053,7 +1070,7 @@ class nivel2 extends Phaser.Scene{
             
                mun.body.setVelocityX(-100);
                setTimeout(()=>{this.gfazo.anims.play('jefe_laser')},Phaser.Math.Between(0,3000));                
-               console.log("Hola");
+             //  console.log("Hola");
            });
 
         this.gfazo.anims.play('jefe_laser');
