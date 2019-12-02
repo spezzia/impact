@@ -742,7 +742,8 @@ class Bootloader extends Phaser.Scene{
         }
         if(this.navesenemegiasdead == 42)
         {
-           
+            this.navesenemegiasdead++;
+            this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
         }
         
     }
