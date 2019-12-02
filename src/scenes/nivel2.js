@@ -920,13 +920,23 @@ class nivel2 extends Phaser.Scene{
         {
             this.papayaselec.setTint(0x5C5A63);
         }
+        else{
+            this.papayaselec.setTint();
+        }
         if(this.cont1.text == 0)
         {
             this.sandiaselec.setTint(0x5C5A63);
         }
+        else{
+            this.sandiaselec.setTint();
+        }
         if(this.cont2.text == 0)
         {
             this.calabazaselec.setTint(0x5C5A63);
+        }
+        else{
+            this.calabazaselec.setTint();
+      
         }
 
         if(this.navesenemigasdead == 10)
