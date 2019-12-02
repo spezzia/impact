@@ -44,8 +44,8 @@ class Control extends Phaser.Scene{
     create()
     {
         this.vidanave = 90;
-        this.fondo = this.add.image(0,0,"fondo");
-        this.fondo.setOrigin(0,0);
+        this.fondo = this.add.image(1250,500,"fondo");
+        this.fondo.setOrigin(1,1);
         this.fondo.setScale(.7);
         this.fondo.setDepth(0);
         this.rose = this.add.image(1250,400,'rose').setScale(.7);
@@ -62,6 +62,10 @@ class Control extends Phaser.Scene{
         this.corazon = this.add.image(6,120,'corazon').setOrigin(0).setScale(1.7);
         this.oleada = this.add.text(500, 225, 'Oleada 1', {
             font: "50px Arial"
+        });
+
+        this.nivel = this.add.text(250, 20, 'Nivel: 1', {
+            font: "20px"
         });
 
         this.contenedor1 = this.add.container(50,20);
@@ -105,8 +109,8 @@ class Control extends Phaser.Scene{
             this.cont2,
             this.cont3
         ]);
-        this.sceneB = this.scene.launch('nivel2',{
-       // this.sceneB = this.scene.launch('Bootloader',{
+      // this.sceneB = this.scene.launch('nivel2',{
+        this.sceneB = this.scene.launch('Bootloader',{
             puntos:this.puntos,
             cont1:this.cont1,
             cont2:this.cont2,
@@ -121,24 +125,88 @@ class Control extends Phaser.Scene{
             text:  this.oleada,
         });
 
+        this.registry.events.on('nivel2', (dato) => {
+            this.oleada = dato.ole;
+            console.log(dato.vi);
+            
+            //this.vidanave = ;
+            this.oleada.text = "Nivel: 2";
+                 //this.scene.stop('Bootloader');
+                  this.scene.remove('Booloader');
+                  this.add.tween({
+                      targets: this.rose,
+                      scaleX: 1.25,
+                      scaleY: 1.25,
+                      duration: 2000
+                  });
+                  this.add.tween({
+                    targets: this.fondo,
+                    scaleX: 1.1,
+                    scaleY: 1.1,
+                    duration: 2000
+                });
+                  
+                  this.nivel.text = "Nivel: 2";
+                 setTimeout(()=>{
+                    this.ni = "2"; 
+                    this.sceneB = this.scene.launch('nivel2',{
+                        puntos:this.puntos,
+                        cont1:this.cont1,
+                        cont2:this.cont2,
+                        cont3:this.cont3,
+                        sandi:this.sandiaselec,
+                        cala:this.calabazaselec,
+                        papa: this.papayaselec,
+                        sele: this.selector,
+                        barra: this.barravida,
+                        vida_na:this.vida_nave,
+                        vidanave: this.vidanave,
+                        text:  this.oleada,
+                    });
+                 },3000);
+                  
+            });
+
 
         
 
     }
     update(time,delta)
     {
-        this.vidanave = this.scene.manager.keys.Bootloader.vidanave;
-        //console.log(this.vidanave);
+
         
        if(this.vidanave <= 0)
         {
-            this.scene.stop('Bootloader');
-            this.scene.remove('Booloader');
+            if(this.ni == "2")
+            {
+                this.scene.stop('nivel2');
+                this.scene.remove('nivel2');
+            }
+            else{
+                this.scene.stop('Bootloader');
+                this.scene.remove('Booloader');
+            
+            }
             this.vida_nave.height = 90;
             this.barravida.clear();
             this.barravida.fillRectShape(this.vida_nave)
+            this.registry.events.emit('Fin');
 
-        }   
+        }
+        else{
+            if(this.nivel.text == "Nivel: 1")
+            {
+                this.vidanave = this.scene.manager.keys.Bootloader.vidanave;
+            }
+            if(this.ni == "2")
+            {
+                this.vidanave = this.scene.manager.keys.nivel2.vidanave;
+            }
+            
+            console.log(this.vidanave);
+        }
+        
+        
     }
     
 }

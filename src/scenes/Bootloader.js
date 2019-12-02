@@ -542,6 +542,12 @@ class Bootloader extends Phaser.Scene{
                 drops.destroy();
             }
          });
+         this.physics.add.collider(this.drops,this.palatano,(potenciador,drops)=> {
+            if(potenciador.texture.key == "asteroide"){
+                //potenciador.destroy();
+                drops.destroy();
+            }
+         });
  
 
          this.physics.add.collider(this.drops,this.nave,(nave,drops)=>
@@ -655,8 +661,9 @@ class Bootloader extends Phaser.Scene{
 
         if(this.navesenemegiasdead == 5)
         {
+            this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
             this.navesenemegiasdead++;
-            this.olea.text = "Oleada 2";
+            //this.olea.text = "Oleada 2";
             this.olea.x = 550;
             this.olea.y = 250;
             this.olea.setScale(1);
@@ -732,6 +739,10 @@ class Bootloader extends Phaser.Scene{
                 this.elite();
                 //this.disparar();
             },2000)
+        }
+        if(this.navesenemegiasdead == 42)
+        {
+           
         }
         
     }
