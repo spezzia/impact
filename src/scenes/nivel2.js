@@ -19,6 +19,7 @@ class nivel2 extends Phaser.Scene{
         this.vidanave = data.vidanave;
         this.barravida = data.barra;
         this.vida_nave = data.vida_na;
+        this.olea = data.text;
         
     }
     preload()
@@ -72,7 +73,7 @@ class nivel2 extends Phaser.Scene{
         
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.navesenemigasdead = 0;
-        this.rose = this.add.image(1100,350,'rose').setScale(1.25);
+        this.olea.text = "Oleada 1"
       
 
         this.navesenemigasdead = 0;
@@ -334,6 +335,23 @@ class nivel2 extends Phaser.Scene{
                stepY: 50
             }             
         });
+
+        this.add.tween({
+            targets: this.olea,
+            x: 1100,
+            y: 25,
+            scaleX: .5,
+            scaleY: .5,
+           duration: 6000,
+           ease: 'Power1',
+           onCompleat: ()=>
+           {
+            this.timelineN.play();
+            this.timelineO.play();
+            this.timelineP.play();    
+           }
+        });
+
         this.grupo.children.iterate( (enemigo1) => {
             
             enemigo1.setScale(.2).setFlipX(1);
@@ -377,9 +395,9 @@ class nivel2 extends Phaser.Scene{
             ease: 'Power1'
         })
 
-        this.timelineN.play();
-        this.timelineO.play();
-        this.timelineP.play();
+       
+        
+
 
         //Creación de grupo NAVES ELITE
 
@@ -912,18 +930,43 @@ class nivel2 extends Phaser.Scene{
         if(this.navesenemigasdead == 10)
         {
             this.navesenemigasdead++;
-            this.ordaelite1();
-            this.ordaelite1_Aux();
-            this.ordaelite2_Aux();
-            this.ordaelite3_Aux();
-            this.disparar();
+
+            this.olea.text = "Oleada 2";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+            setTimeout(()=>
+            {
+                this.ordaelite1();
+                this.ordaelite1_Aux();
+                this.ordaelite2_Aux();
+                this.ordaelite3_Aux();
+                this.disparar();
+            },2000)
+            
         }
         if(this.navesenemigasdead == 24){
             this.navesenemigasdead++;
-            this.gfazo();
-            this.ordaelite1();
-            this.ordaelite1_Aux();
-            this.disparar();
+            this.olea.text = "Oleada Final";
+            this.olea.x = 550;
+            this.olea.y = 250;
+            this.olea.setScale(1);
+            setTimeout(()=>
+            {
+                this.text();
+            },1000)
+            setTimeout(()=>
+            {
+                this.gfazo();
+                this.ordaelite1();
+                this.ordaelite1_Aux();
+                this.disparar();
+            },2000)
+           
         }
         if(this.navesenemigasdead == 32)
         {
@@ -1104,15 +1147,26 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
     
     if(enemigo.getData('vida') == null)
     {
-        this.text1 = this.add.text(650, 420, 'Gfazo', {
+        this.text1 = this.add.text(625, 420, 'Gfazo', {
             fontSize: 20
         });
+
+        this.graphics1 = this.add.graphics({
+            fillStyle:{color: 0xFFFFFF}
+        })
+        this.life_bar1 = new Phaser.Geom.Rectangle(390,445,520,25);
+        this.graphics1.fillRectShape(this.life_bar1);
+        this.graphics1.setDepth(7);
+
         this.graphics = this.add.graphics({
             fillStyle:{color: 0xFF9D36}
         })
         this.life_bar = new Phaser.Geom.Rectangle(400,450,500,15);
         this.graphics.fillRectShape(this.life_bar);
         this.graphics.setDepth(7);
+
+        
+
         enemigo.setData('vida', 500);
         enemigo.setData('linea',this.life_bar);
         enemigo.setData('grafico',this.graphics);
@@ -1274,6 +1328,18 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
 //     }
 // });
      }
+     text()
+    {
+        this.add.tween({
+            targets: this.olea,
+            x: 1100,
+            y: 25,
+            scaleX: .5,
+            scaleY: .5,
+           duration: 6000,
+           ease: 'Power1'
+        });
+    }
     
 }
 

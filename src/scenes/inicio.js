@@ -25,6 +25,12 @@ class inicio extends Phaser.Scene{
             this.scene.launch('Control');
             console.log(this.scene.manager.scenes.map( x => x.scene.key ));
         });
+
+        /*this.registry.events.on('Fin',()=>
+        {
+            this.scene.stop('Control');
+            this.scene.remove('Control');
+        });*/
     }
     update(time, delta) {
         
