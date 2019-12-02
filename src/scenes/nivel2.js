@@ -12,6 +12,7 @@ class nivel2 extends Phaser.Scene{
         this.cont1 = data.cont1;
         this.cont2 = data.cont2;
         this.cont3 = data.cont3;
+        this.puntos = data.puntos;
         this.sandiaselec = data.sandi;
         this.calabazaselec = data.cala;
         this.papayaselec = data.papa;
@@ -648,6 +649,7 @@ class nivel2 extends Phaser.Scene{
                 }
             }
             platano.destroy();
+            this.puntos.text = parseInt(this.puntos.text) +25;
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
@@ -677,7 +679,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 25);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-    
+                    this.puntos.text = parseInt(this.puntos.text) +50;
                 }else
                 {
                     var vida = enemigo.getData('vida');
@@ -723,7 +725,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 38);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-
+                    this.puntos.text = parseInt(this.puntos.text) +75;
     
                 }else
                 {
@@ -761,7 +763,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 50);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
-    
+                    this.puntos.text = parseInt(this.puntos.text) +100;
                 }else
                 {
                     var vida = enemigo.getData('vida');
@@ -795,7 +797,7 @@ class nivel2 extends Phaser.Scene{
             this.barravida.fillRectShape(this.vida_nave)
             nave.setVelocity(0);
             nave.setAcceleration(0);
-         
+            this.puntos.text = parseInt(this.puntos.text) -25;
             municion.destroy();
             nave.setTint(0xff0000);
             this.canion.setTint(0xff0000);
