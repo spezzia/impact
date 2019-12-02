@@ -95,11 +95,11 @@ class inicio extends Phaser.Scene{
         //     });*/
         // });
 
-        /*this.cursor = this.input.keyboard.createCursorKeys();
+        this.cursor = this.input.keyboard.createCursorKeys();
         this.cursor.shift.on('down', () =>{
             this.scene.launch('Control');
             console.log(this.scene.manager.scenes.map( x => x.scene.key ));
-        });*/
+        });
     }
     update(time, delta) {
         
