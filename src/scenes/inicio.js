@@ -51,13 +51,13 @@ class inicio extends Phaser.Scene{
          });
         this.b2.on(eventos.POINTER_OUT, (evento) => {
              this.b2.setScale(1);
-             /*this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, GameObject) =>
+             this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, GameObject) =>
              {
                  this.b1.setVisible(false);
                  this.b2.setVisible(false);
-                 this.scene.launch('Control');
+                 this.scene.launch('controles');
                  console.log(this.scene.manager.scenes.map( x => x.scene.key )); 
-             });*/
+             });
         });
     
 
