@@ -59,8 +59,15 @@ class nivel2 extends Phaser.Scene{
         this.load.audio('cargarcanion', 'sonidos/cargarcanion.mp3');
         this.load.audio('potenciador1', 'sonidos/potenciador1.mp3');
         this.load.audio('potenciador2', 'sonidos/potenciador2.mp3');
-        //this.load.audio('vocho', 'sonidos/vocho.mp3');
+        this.load.audio('potenciador3', 'sonidos/potenciador3.mp3');
+        this.load.audio('patano', 'sonidos/patano.mp3');
+        this.load.audio('fondo1', 'sonidos/fondo1.mp3');
+        this.load.audio('vocho', 'sonidos/vocho.mp3');
         this.load.audio('sonidoe', 'sonidos/elite.mp3');
+        this.load.audio('vid', 'sonidos/vida.mp3');
+        this.load.audio('meteoro', 'sonidos/meteoro.mp3');
+        this.load.audio('balase', 'sonidos/balasE.mp3');
+        this.load.audio('absorver', 'sonidos/absorver.mp3');
         
     }
 
@@ -69,9 +76,18 @@ class nivel2 extends Phaser.Scene{
         this.cargarcanion = this.sound.add('cargarcanion');
         this.potenciador1 = this.sound.add('potenciador1');
         this.potenciador2 = this.sound.add('potenciador2');
-        this.vocho = this.sound.add('vocho');
+        this.potenciador3 = this.sound.add('potenciador3');
+        this.fondo1 = this.sound.add('fondo1');
+        this.patano = this.sound.add('patano');
         this.sonidoe = this.sound.add('sonidoe');
-        
+        this.vocho = this.sound.add('vocho');
+        this.vocho.play({loop:1});
+        this.fondo1.play();
+        this.vid = this.sound.add('vid');
+        this.meteoro = this.sound.add('meteoro');
+        this.balase = this.sound.add('balase');
+        this.absorver  =this.sound.add('absorver');
+
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.navesenemigasdead = 0;
         this.olea.text = "Oleada 1"
@@ -247,6 +263,7 @@ class nivel2 extends Phaser.Scene{
             }
             if( this.selector.x == 160 && this.cont3.text > 0)
             {
+                this.potenciador3.play();
                 this.flechas.space.destroy();
                 var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'papaya').setScale(.5);  
                 sandi.setBounce(0.2);
@@ -309,8 +326,10 @@ class nivel2 extends Phaser.Scene{
                 x:5000,
                 rotation: 35 * Math.PI,
                 duration: 10000,
+
             });
             this.timeline.play();
+            this.patano.play();
         },
        loop:true,
        paused: true
@@ -359,6 +378,7 @@ class nivel2 extends Phaser.Scene{
             setTimeout(()=>{enemigo1.anims.play('disparare2')},Phaser.Math.Between(0,1500)); 
             enemigo1.on('animationcomplete',()=>{
             var mun = this.municion.create(enemigo1.x-60,enemigo1.y,'municion').setScale(.1); 
+               // this.balase.play();
                mun.body.setVelocityX(-100);
                setTimeout(()=>{enemigo1.anims.play('disparare2')},Phaser.Math.Between(0,1500));                               
                //console.log("Hola");
@@ -415,7 +435,7 @@ class nivel2 extends Phaser.Scene{
         
 
         this.grupoe.children.iterate((elite) => {
-            
+            this.sonidoe.play();
             elite.setScale(.5);
             elite.setSize(110,140);
             elite.setOffset(50, 25);
@@ -791,6 +811,7 @@ class nivel2 extends Phaser.Scene{
 
 
         this.physics.add.collider(this.municion,this.nave,(nave,municion)=> {
+            
             this.vidanave -= 1;
             this.vida_nave.height = this.vidanave;
             this.barravida.clear();
@@ -800,6 +821,7 @@ class nivel2 extends Phaser.Scene{
             this.puntos.text = parseInt(this.puntos.text) -25;
             municion.destroy();
             nave.setTint(0xff0000);
+            
             this.canion.setTint(0xff0000);
             setTimeout(()=>{nave.setTint();this.canion.setTint();},150); 
          });
@@ -815,24 +837,30 @@ class nivel2 extends Phaser.Scene{
            {
                case "papaya":
                    this.cont3.text = parseInt(this.cont3.text) + 1;
+                   this.absorver.play();
                    break;
                case "sandia":
                    this.cont1.text = parseInt(this.cont1.text) + 1;
+                   this.absorver.play();
                    break;
                case "calabaza":
                    this.cont2.text = parseInt(this.cont2.text) + 1;
+                   this.absorver.play();
                    break;
                case "+vida":
                    this.vidanave = 90;
                    this.vida_nave.height = this.vidanave;
                    this.barravida.clear();
                    this.barravida.fillRectShape(this.vida_nave);
+                   this.vid.play();
+                   this.absorver.play();
                    break;
                case "asteroide":
                        this.vidanave -= 20;
                        this.vida_nave.height = this.vidanave;
                        this.barravida.clear();
-                       this.barravida.fillRectShape(this.vida_nave)
+                       this.barravida.fillRectShape(this.vida_nave);
+                       this.meteoro.play();
                    break;
            } 
            drops.destroy();
@@ -1011,6 +1039,7 @@ class nivel2 extends Phaser.Scene{
             ease: 'Power2'
         })
 
+        
         this.timelineA.play();
     }
 
@@ -1094,7 +1123,7 @@ class nivel2 extends Phaser.Scene{
 
     disparar(){
         this.grupoe.children.iterate((elite) => {
-
+            this.sonidoe.play();
             elite.setScale(.5);
             elite.setSize(110,140);
             elite.setOffset(50, 25);
@@ -1208,137 +1237,138 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
     setTimeout(()=>{enemigo.setTint()},150); 
 });
 
-// this.physics.add.collider(this.potenciador, this.gfazo,(potenciador, enemigo)=>{
+this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
     
-//     if(potenciador.texture.key == "sandia")
-//     {
-//         potenciador.body.destroy();
-//         potenciador.anims.play('destruccion',true);
-//         potenciador.on('animationcomplete-destruccion', ()=>{
-//         potenciador.destroy();
+    if(potenciador.texture.key == "sandia")
+    {
+        potenciador.body.destroy();
+        potenciador.anims.play('destruccion',true);
+        potenciador.on('animationcomplete-destruccion', ()=>{
+        potenciador.destroy();
         
-//         console.log('eeeoo');
-//         });
-//         enemigo.setTint(0xff0000);
-//         setTimeout(()=>{enemigo.setTint()},150); 
-//         if(enemigo.getData('vida') == null)
-//         {
-//             this.graphics = this.add.graphics({
-//                 fillStyle:{color: 0x1BFF00}
-//             })
-//             this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,25,5);
-//             this.graphics.fillRectShape(this.life_bar);
-//             this.graphics.setDepth(7);
-//             enemigo.setData('vida', 25);
-//             enemigo.setData('linea',this.life_bar);
-//             enemigo.setData('grafico',this.graphics);
+        console.log('eeeoo');
+        });
+        enemigo.setTint(0xff0000);
+        setTimeout(()=>{enemigo.setTint()},150); 
+        if(enemigo.getData('vida') == null)
+        {
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0x1BFF00}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,25,5);
+            this.graphics.fillRectShape(this.life_bar);
+            this.graphics.setDepth(7);
+            enemigo.setData('vida', 25);
+            enemigo.setData('linea',this.life_bar);
+            enemigo.setData('grafico',this.graphics);
 
-//         }else
-//         {
-//             var vida = enemigo.getData('vida');
-//             if(vida - 25 <= 0)
-//             {
-//                 var grafico = enemigo.getData('grafico');
-//                grafico.clear();
-//                enemigo.destroy() ;
-//                this.navesenemigasdead++;
+        }else
+        {
+            var vida = enemigo.getData('vida');
+            if(vida - 25 <= 0)
+            {
+                var grafico = enemigo.getData('grafico');
+               grafico.clear();
+               enemigo.destroy() ;
+               this.navesenemigasdead++;
                
-//             }else{
-//                 enemigo.setData('vida',vida - 25);
-//                 var linea = enemigo.getData('linea');
-//                 linea.x = enemigo.x-25  ;
-//                 linea.width = vida - 25;
-//                 var grafico = enemigo.getData('grafico');
-//                 grafico.clear();
-//                 grafico.fillRectShape(linea);
-//             }
-//         }
-//     }
-//     if(potenciador.texture.key == "calabaza")
-//     {
-//         enemigo.setVelocity(0);
-//         enemigo.setAcceleration(0);
-//         setTimeout(()=>{potenciador.body.destroy();},10); 
+            }else{
+                enemigo.setData('vida',vida - 25);
+                var linea = enemigo.getData('linea');
+                linea.x = enemigo.x-25  ;
+                linea.width = vida - 25;
+                var grafico = enemigo.getData('grafico');
+                grafico.clear();
+                grafico.fillRectShape(linea);
+            }
+        }
+    }
+    if(potenciador.texture.key == "calabaza")
+    {
+        enemigo.setVelocity(0);
+        enemigo.setAcceleration(0);
+        setTimeout(()=>{potenciador.body.destroy();},10); 
         
-//         potenciador.anims.play('explotar',true);
-//         potenciador.on('animationcomplete-explotar', ()=>{
-//         potenciador.destroy();
-//         console.log('eeeoo');
-//         });
-//         enemigo.setTint(0xff0000);
-//         setTimeout(()=>{enemigo.setTint()},150); 
-//         if(enemigo.getData('vida') == null)
-//         {
-//             this.graphics = this.add.graphics({
-//                 fillStyle:{color: 0x1BFF00}
-//             })
-//             this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,38,5);
-//             this.graphics.fillRectShape(this.life_bar);
-//             this.graphics.setDepth(7);
-//             enemigo.setData('vida', 38);
-//             enemigo.setData('linea',this.life_bar);
-//             enemigo.setData('grafico',this.graphics);
+        potenciador.anims.play('explotar',true);
+        potenciador.on('animationcomplete-explotar', ()=>{
+        potenciador.destroy();
+        console.log('eeeoo');
+        });
+        enemigo.setTint(0xff0000);
+        setTimeout(()=>{enemigo.setTint()},150); 
+        if(enemigo.getData('vida') == null)
+        {
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0x1BFF00}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,38,5);
+            this.graphics.fillRectShape(this.life_bar);
+            this.graphics.setDepth(7);
+            enemigo.setData('vida', 38);
+            enemigo.setData('linea',this.life_bar);
+            enemigo.setData('grafico',this.graphics);
 
 
-//         }else
-//         {
-//             var vida = enemigo.getData('vida');
-//             if(vida - 12 <= 0)
-//             {
-//                 var grafico = enemigo.getData('grafico');
-//                grafico.clear();
-//                enemigo.destroy() ;
-//                this.navesenemigasdead++;
+        }else
+        {
+            var vida = enemigo.getData('vida');
+            if(vida - 12 <= 0)
+            {
+                var grafico = enemigo.getData('grafico');
+               grafico.clear();
+               enemigo.destroy() ;
+               this.navesenemigasdead++;
                
-//             }else{
-//                 enemigo.setData('vida',vida - 12);
-//                 var linea = enemigo.getData('linea');
-//                 linea.x = enemigo.x - 25;
-//                 linea.width = vida - 12;
-//                 var grafico = enemigo.getData('grafico');
-//                 grafico.clear();
-//                 grafico.fillRectShape(linea);
-//             }
-//         }
-//     }
-//     if(potenciador.texture.key == "papaya")
-//     {
-//         enemigo.setVelocity(0);
-//         enemigo.setAcceleration(0);
-//         if(enemigo.getData('vida') == null)
-//         {
-//             this.graphics = this.add.graphics({
-//                 fillStyle:{color: 0x1BFF00}
-//             })
-//             this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,50,5);
-//             this.graphics.fillRectShape(this.life_bar);
-//             this.graphics.setDepth(7);
-//             enemigo.setData('vida', 50);
-//             enemigo.setData('linea',this.life_bar);
-//             enemigo.setData('grafico',this.graphics);
+            }else{
+                enemigo.setData('vida',vida - 12);
+                var linea = enemigo.getData('linea');
+                linea.x = enemigo.x - 25;
+                linea.width = vida - 12;
+                var grafico = enemigo.getData('grafico');
+                grafico.clear();
+                grafico.fillRectShape(linea);
+            }
+        }
+    }
+    if(potenciador.texture.key == "papaya")
+    {
+        enemigo.setVelocity(0);
+        enemigo.setAcceleration(0);
+        potenciador.body.destroy();
+        if(enemigo.getData('vida') == null)
+        {
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0x1BFF00}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,100,5);
+            this.graphics.fillRectShape(this.life_bar);
+            this.graphics.setDepth(7);
+            enemigo.setData('vida', 100);
+            enemigo.setData('linea',this.life_bar);
+            enemigo.setData('grafico',this.graphics);
 
-//         }else
-//         {
-//             var vida = enemigo.getData('vida');
-//             if(vida - 100 < 0)
-//             {
-//                 var grafico = enemigo.getData('grafico');
-//                grafico.clear();
-//                enemigo.destroy() ;
-//                this.navesenemigasdead++;
+        }else
+        {
+            var vida = enemigo.getData('vida');
+            if(vida - 25 < 0)
+            {
+                var grafico = enemigo.getData('grafico');
+               grafico.clear();
+               enemigo.destroy() ;
+               this.navesenemigasdead++;
                
-//             }else{
-//                 enemigo.setData('vida',vida - 100);
-//                 var linea = enemigo.getData('linea');
-//                 linea.x = enemigo.x-25;
-//                 linea.width = vida - 100;
-//                 var grafico = enemigo.getData('grafico');
-//                 grafico.clear();
-//                 grafico.fillRectShape(linea);
-//             }
-//         }
-//     }
-// });
+            }else{
+                enemigo.setData('vida',vida - 25);
+                var linea = enemigo.getData('linea');
+                linea.x = enemigo.x-25;
+                linea.width = vida - 25;
+                var grafico = enemigo.getData('grafico');
+                grafico.clear();
+                grafico.fillRectShape(linea);
+            }
+        }
+    }
+});
      }
      text()
     {
