@@ -131,7 +131,7 @@ class Control extends Phaser.Scene{
             
             //this.vidanave = ;
             this.oleada.text = "Nivel: 2";
-                 //this.scene.stop('Bootloader');
+                 this.scene.stop('Bootloader');
                   this.scene.remove('Booloader');
                   this.add.tween({
                       targets: this.rose,
