@@ -661,9 +661,9 @@ class Bootloader extends Phaser.Scene{
 
         if(this.navesenemegiasdead == 5)
         {
-            this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
+            //this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
             this.navesenemegiasdead++;
-            //this.olea.text = "Oleada 2";
+            this.olea.text = "Oleada 2";
             this.olea.x = 550;
             this.olea.y = 250;
             this.olea.setScale(1);
