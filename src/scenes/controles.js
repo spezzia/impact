@@ -158,11 +158,14 @@ class controles extends Phaser.Scene{
              this.reg.setScale(1);
              this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, GameObject) =>
              {
+                this.registry.events.emit('control');
                  this.contenedor.setVisible(false);
                  this.contenedor2.setVisible(false);
                  this.fondo.setVisible(false);
                  this.nombre.setVisible(false);
-                 this.scene.launch('inicio');
+                 //this.scene.launch('inicio');
+                // this.scene.stop();
+                 //this.scene.destroy();
                  console.log(this.scene.manager.scenes.map( x => x.scene.key )); 
              });
         });

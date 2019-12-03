@@ -46,11 +46,20 @@ class inicio extends Phaser.Scene{
              this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, GameObject) =>
              {
                  this.b1.setVisible(false);
+                 this.intro.stop();
+                 this.menu.stop();
                  this.b2.setVisible(false);
+                 this.scene.sendToBack('controles')
                  this.scene.launch('Control');
                  console.log(this.scene.manager.scenes.map( x => x.scene.key )); 
              });
         });
+
+        this.registry.events.on('controles', ()=>
+        {
+            this.scene.sendToBack('controles')
+            //this.scene.remove('controles');
+        })
 
         this.b2.on(eventos.POINTER_MOVE, (evento) => {
             this.b2.setScale(1.2);
@@ -59,8 +68,8 @@ class inicio extends Phaser.Scene{
              this.b2.setScale(1);
              this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, GameObject) =>
              {
-                 this.b1.setVisible(false);
-                 this.b2.setVisible(false);
+                 //this.b1.setVisible(false);
+                 //this.b2.setVisible(false);
                  this.scene.launch('controles');
                  console.log(this.scene.manager.scenes.map( x => x.scene.key )); 
              });
@@ -100,14 +109,22 @@ class inicio extends Phaser.Scene{
         //         console.log(this.scene.manager.scenes.map( x => x.scene.key )); 
         //     });*/
         // });
+        const keyCodes = Phaser.Input.Keyboard.KeyCodes;
 
-        this.cursor = this.input.keyboard.createCursorKeys();
+        this.saltar = this.input.keyboard.addKey(keyCodes.K);
+        this.saltar.on('down',()=>
+        {
+            this.scene.launch('Control');
+            
+            console.log(this.scene.manager.scenes.map( x => x.scene.key ));
+        })
+
+        /*this.cursor = this.input.keyboard.createCursorKeys();
         this.cursor.shift.on('down', () =>{
             this.scene.launch('Control');
-            this.intro.stop();
-            this.menu.stop();
+            
             console.log(this.scene.manager.scenes.map( x => x.scene.key ));
-        });
+        });*/
     }
     update(time, delta) {
         

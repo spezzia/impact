@@ -38,7 +38,7 @@ class Bootloader extends Phaser.Scene{
         this.sonidoe = this.sound.add('sonidoe');
         this.vocho = this.sound.add('vocho');
         this.vocho.play({loop:1});
-        this.fondo1.play();
+        this.fondo1.play({loop:1});
         this.vid = this.sound.add('vid');
         this.meteoro = this.sound.add('meteoro');
         this.balase = this.sound.add('balase');
@@ -682,7 +682,7 @@ class Bootloader extends Phaser.Scene{
 
         if(this.navesenemegiasdead == 5)
         {
-            //this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
+            this.registry.events.emit('nivel2', {ole:this.olea,vi:this.vidanave});
             this.navesenemegiasdead++;
             this.olea.text = "Oleada 2";
             this.olea.x = 550;

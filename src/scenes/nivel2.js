@@ -473,6 +473,7 @@ class nivel2 extends Phaser.Scene{
                 enemigo.setData('vida', 50);
                 enemigo.setData('linea',this.life_bar);
                 enemigo.setData('grafico',this.graphics);
+               // this.puntos.text = parseInt(this.puntos.text) + 25;
 
             }else
             {
@@ -495,6 +496,7 @@ class nivel2 extends Phaser.Scene{
                 }
             }
             platano.destroy();
+            this.puntos.text = parseInt(this.puntos.text) +25;
             enemigo.setTint(0xff0000);
             setTimeout(()=>{enemigo.setTint()},150); 
         });
@@ -521,6 +523,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 50);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
+                    this.puntos.text = parseInt(this.puntos.text) + 50;
     
                 }else
                 {
@@ -567,6 +570,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 25);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
+                    this.puntos.text = parseInt(this.puntos.text) + 75;
 
     
                 }else
@@ -605,6 +609,7 @@ class nivel2 extends Phaser.Scene{
                     enemigo.setData('vida', 50);
                     enemigo.setData('linea',this.life_bar);
                     enemigo.setData('grafico',this.graphics);
+                    this.puntos.text = parseInt(this.puntos.text) + 100;
     
                 }else
                 {
@@ -890,7 +895,7 @@ class nivel2 extends Phaser.Scene{
             }
          });
 
-        this.gfazo();
+        //this.gfazo();
         
     }
     update(time,delta)
@@ -1136,7 +1141,7 @@ class nivel2 extends Phaser.Scene{
     }
 
     gfazo(){
-        this.gfazo=this.physics.add.sprite(500, 350, 'jefe');
+        this.gfazo=this.physics.add.sprite(1250, 350, 'jefe');
         this.gfazo.setSize(125, 127);
         this.gfazo.setOffset(15, 8);
 
@@ -1231,6 +1236,7 @@ this.physics.add.collider(this.palatano, this.gfazo,(enemigo,platano) =>{
         }
     }
     platano.destroy();
+    this.puntos.text = parseInt(this.puntos.text) +25;
     enemigo.setTint(0xff0000);
     setTimeout(()=>{enemigo.setTint()},150); 
 });
@@ -1239,6 +1245,8 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
     
     if(potenciador.texture.key == "sandia")
     {
+        enemigo.setVelocity(0);
+        enemigo.setAcceleration(0);
         potenciador.body.destroy();
         potenciador.anims.play('destruccion',true);
         potenciador.on('animationcomplete-destruccion', ()=>{
@@ -1250,20 +1258,36 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
         setTimeout(()=>{enemigo.setTint()},150); 
         if(enemigo.getData('vida') == null)
         {
-            this.graphics = this.add.graphics({
-                fillStyle:{color: 0x1BFF00}
+            this.text1 = this.add.text(625, 420, 'Gfazo', {
+                fontSize: 20
+            });
+    
+            this.graphics1 = this.add.graphics({
+                fillStyle:{color: 0xFFFFFF}
             })
-            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,25,5);
+            this.life_bar1 = new Phaser.Geom.Rectangle(390,445,520,25);
+            this.graphics1.fillRectShape(this.life_bar1);
+            this.graphics1.setDepth(7);
+    
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0xFF9D36}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(400,450,500,15);
             this.graphics.fillRectShape(this.life_bar);
             this.graphics.setDepth(7);
-            enemigo.setData('vida', 25);
+    
+            
+    
+            enemigo.setData('vida', 500);
             enemigo.setData('linea',this.life_bar);
             enemigo.setData('grafico',this.graphics);
+
+            this.puntos.text = parseInt(this.puntos.text) +50;
 
         }else
         {
             var vida = enemigo.getData('vida');
-            if(vida - 25 <= 0)
+            if(vida - 20 <= 0)
             {
                 var grafico = enemigo.getData('grafico');
                grafico.clear();
@@ -1271,10 +1295,11 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
                this.navesenemigasdead++;
                
             }else{
-                enemigo.setData('vida',vida - 25);
+                enemigo.setData('vida',vida - 20);
                 var linea = enemigo.getData('linea');
-                linea.x = enemigo.x-25  ;
-                linea.width = vida - 25;
+                //linea.x = enemigo.x-25  ;
+                linea.width = vida - 20;
+               
                 var grafico = enemigo.getData('grafico');
                 grafico.clear();
                 grafico.fillRectShape(linea);
@@ -1296,21 +1321,36 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
         setTimeout(()=>{enemigo.setTint()},150); 
         if(enemigo.getData('vida') == null)
         {
-            this.graphics = this.add.graphics({
-                fillStyle:{color: 0x1BFF00}
+            this.text1 = this.add.text(625, 420, 'Gfazo', {
+                fontSize: 20
+            });
+    
+            this.graphics1 = this.add.graphics({
+                fillStyle:{color: 0xFFFFFF}
             })
-            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,38,5);
+            this.life_bar1 = new Phaser.Geom.Rectangle(390,445,520,25);
+            this.graphics1.fillRectShape(this.life_bar1);
+            this.graphics1.setDepth(7);
+    
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0xFF9D36}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(400,450,500,15);
             this.graphics.fillRectShape(this.life_bar);
             this.graphics.setDepth(7);
-            enemigo.setData('vida', 38);
+    
+            
+    
+            enemigo.setData('vida', 500);
             enemigo.setData('linea',this.life_bar);
             enemigo.setData('grafico',this.graphics);
 
+            this.puntos.text = parseInt(this.puntos.text) +75;
 
         }else
         {
             var vida = enemigo.getData('vida');
-            if(vida - 12 <= 0)
+            if(vida - 15 <= 0)
             {
                 var grafico = enemigo.getData('grafico');
                grafico.clear();
@@ -1318,10 +1358,10 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
                this.navesenemigasdead++;
                
             }else{
-                enemigo.setData('vida',vida - 12);
+                enemigo.setData('vida',vida - 15);
                 var linea = enemigo.getData('linea');
-                linea.x = enemigo.x - 25;
-                linea.width = vida - 12;
+                //linea.x = enemigo.x - 25;
+                linea.width = vida - 15;
                 var grafico = enemigo.getData('grafico');
                 grafico.clear();
                 grafico.fillRectShape(linea);
@@ -1335,20 +1375,35 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
         potenciador.body.destroy();
         if(enemigo.getData('vida') == null)
         {
-            this.graphics = this.add.graphics({
-                fillStyle:{color: 0x1BFF00}
+            this.text1 = this.add.text(625, 420, 'Gfazo', {
+                fontSize: 20
+            });
+    
+            this.graphics1 = this.add.graphics({
+                fillStyle:{color: 0xFFFFFF}
             })
-            this.life_bar = new Phaser.Geom.Rectangle(enemigo.x-25,enemigo.y + 25,100,5);
+            this.life_bar1 = new Phaser.Geom.Rectangle(390,445,520,25);
+            this.graphics1.fillRectShape(this.life_bar1);
+            this.graphics1.setDepth(7);
+    
+            this.graphics = this.add.graphics({
+                fillStyle:{color: 0xFF9D36}
+            })
+            this.life_bar = new Phaser.Geom.Rectangle(400,450,500,15);
             this.graphics.fillRectShape(this.life_bar);
             this.graphics.setDepth(7);
-            enemigo.setData('vida', 100);
+    
+            
+    
+            enemigo.setData('vida', 500);
             enemigo.setData('linea',this.life_bar);
             enemigo.setData('grafico',this.graphics);
+            this.puntos.text = parseInt(this.puntos.text) +100;
 
         }else
         {
             var vida = enemigo.getData('vida');
-            if(vida - 25 < 0)
+            if(vida - 30 < 0)
             {
                 var grafico = enemigo.getData('grafico');
                grafico.clear();
@@ -1356,10 +1411,11 @@ this.physics.add.collider(this.potenciador, this.gfazo,(enemigo, potenciador)=>{
                this.navesenemigasdead++;
                
             }else{
-                enemigo.setData('vida',vida - 25);
+                enemigo.setData('vida',vida - 10);
                 var linea = enemigo.getData('linea');
-                linea.x = enemigo.x-25;
-                linea.width = vida - 25;
+                //linea.x = enemigo.x-25;
+                linea.width = vida - 30;
+               
                 var grafico = enemigo.getData('grafico');
                 grafico.clear();
                 grafico.fillRectShape(linea);
