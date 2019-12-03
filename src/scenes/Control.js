@@ -39,6 +39,19 @@ class Control extends Phaser.Scene{
         this.load.animation('asteroidee', 'asteroide_PP3/asteroide_anim.json');
         this.load.atlas('naveelite', 'naveelite_PP3/naveelite.png', 'naveelite_PP3/naveelite_atlas.json');
         this.load.animation('naveelite', 'naveelite_PP3/naveelite_anim.json');
+
+        this.load.audio('cargarcanion', 'sonidos/cargarcanion.mp3');
+        this.load.audio('potenciador1', 'sonidos/potenciador1.mp3');
+        this.load.audio('potenciador2', 'sonidos/potenciador2.mp3');
+        this.load.audio('potenciador3', 'sonidos/potenciador3.mp3');
+        this.load.audio('patano', 'sonidos/patano.mp3');
+        this.load.audio('fondo1', 'sonidos/fondo1.mp3');
+        this.load.audio('vocho', 'sonidos/vocho.mp3');
+        this.load.audio('sonidoe', 'sonidos/elite.mp3');
+        this.load.audio('vid', 'sonidos/vida.mp3');
+        this.load.audio('meteoro', 'sonidos/meteoro.mp3');
+        this.load.audio('balase', 'sonidos/balasE.mp3');
+        this.load.audio('absorver', 'sonidos/absorver.mp3');
         
     }
     create()

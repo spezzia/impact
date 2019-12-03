@@ -10,13 +10,19 @@ class inicio extends Phaser.Scene{
     preload(){
         this.load.path="./assets/"; // Rutas de todas las imaganes
         this.load.image('ini','impact.jpg');
+         //this.load.audio('intro', 'sonidos/intro.mp3');
+         this.load.audio('menu', 'sonidos/menu.mp3');
         this.load.image('b1','boton1.png');
         this.load.image('b2','boton2.png');
         //this.load.image('enter','enter0.png');
     }
     create() {
-
-        this.ini = this.add.image(650, 270, 'ini').setScale(1.5,1);
+        this.intro = this.sound.add('intro');
+        this.menu = this.sound.add('menu');
+       // this.intro.play({loop:1});
+        this.menu.play({loop:1});
+        this.ini = this.add.image(620, 270, 'ini');
+        this.ini.setScale(1.25)
         //this.ini.flipX = true;
         //this.ent = this.add.image(600,250, 'enter').setScale(.7);
         this.b1 = this.add.text(400, 400, ' Iniciar', {
@@ -98,6 +104,8 @@ class inicio extends Phaser.Scene{
         this.cursor = this.input.keyboard.createCursorKeys();
         this.cursor.shift.on('down', () =>{
             this.scene.launch('Control');
+            this.intro.stop();
+            this.menu.stop();
             console.log(this.scene.manager.scenes.map( x => x.scene.key ));
         });
     }
