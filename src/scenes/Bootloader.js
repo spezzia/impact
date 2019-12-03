@@ -25,10 +25,25 @@ class Bootloader extends Phaser.Scene{
     }
     preload()
     {    
-
+       
     }
     create()
     {
+        this.cargarcanion = this.sound.add('cargarcanion');
+        this.potenciador1 = this.sound.add('potenciador1');
+        this.potenciador2 = this.sound.add('potenciador2');
+        this.potenciador3 = this.sound.add('potenciador3');
+        this.fondo1 = this.sound.add('fondo1');
+        this.patano = this.sound.add('patano');
+        this.sonidoe = this.sound.add('sonidoe');
+        this.vocho = this.sound.add('vocho');
+        this.vocho.play({loop:1});
+        this.fondo1.play();
+        this.vid = this.sound.add('vid');
+        this.meteoro = this.sound.add('meteoro');
+        this.balase = this.sound.add('balase');
+        this.absorver  =this.sound.add('absorver');
+
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.navesenemegiasdead = 0;
         this.drops = this.physics.add.group();
@@ -150,6 +165,7 @@ class Bootloader extends Phaser.Scene{
                  
                 if(this.selector.x == 35 && this.cont1.text > 0)
                 {
+                    this.potenciador1.play();
                     this.flechas.space.destroy();
                     var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'sandia').setScale(.5).setFlipX(1);  
                     sandi.setBounce(0.2);
@@ -170,6 +186,7 @@ class Bootloader extends Phaser.Scene{
                 }
                 if( this.selector.x == 100 && this.cont2.text > 0)
                 {
+                    this.potenciador2.play();
                     this.flechas.space.destroy();
                     var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'calabaza').setScale(.5);  
                     sandi.setBounce(0.2);
@@ -193,6 +210,7 @@ class Bootloader extends Phaser.Scene{
                 }
                 if( this.selector.x == 160 && this.cont3.text > 0)
                 {
+                    this.potenciador3.play();
                     this.flechas.space.destroy();
                     var sandi  = this.potenciador.create(this.container.x+45,this.container.y-38,'papaya').setScale(.5);  
                     sandi.setBounce(0.2);
@@ -215,7 +233,7 @@ class Bootloader extends Phaser.Scene{
                         duration: 5000,
                     });
                     this.timelinesandi.play();
-
+                    this.patano.play();
                 }
 
                
@@ -234,7 +252,7 @@ class Bootloader extends Phaser.Scene{
          this.canion.on('animationcomplete-disparo', ()=>{
             this.flechas.space.destroy();
             this.canion.anims.play('carga');
-
+            this.cargarcanion.play(); 
          });
         this.nave.anims.play('vuelo');
         this.canion.anims.play('carga');
@@ -568,12 +586,15 @@ class Bootloader extends Phaser.Scene{
                     this.vida_nave.height = this.vidanave;
                     this.barravida.clear();
                     this.barravida.fillRectShape(this.vida_nave);
+                    this.vid.play();
+                    this.absorver.play();
                     break;
                 case "asteroide":
                         this.vidanave -= 20;
                         this.vida_nave.height = this.vidanave;
                         this.barravida.clear();
-                        this.barravida.fillRectShape(this.vida_nave)
+                        this.barravida.fillRectShape(this.vida_nave);
+                        this.meteoro.play();
                     break;
             } 
             drops.destroy();
@@ -1121,7 +1142,7 @@ class Bootloader extends Phaser.Scene{
 
     disparar(){
         this.grupo.children.iterate( (enemigo1) => {
-            
+            this.sonidoe.play();
             enemigo1.setScale(.2).setFlipX(1);
             setTimeout(()=>{enemigo1.anims.play('disparare2')},Phaser.Math.Between(0,1500)); 
             enemigo1.on('animationcomplete',()=>{
