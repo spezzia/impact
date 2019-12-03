@@ -81,7 +81,7 @@ class nivel2 extends Phaser.Scene{
         this.drops = this.physics.add.group();
 
         this.droper= this.time.addEvent({
-            delay: 15000,                // ms
+            delay: 2000,                // ms
             callback: () =>  {
                 var ale = Phaser.Math.Between(0, 8);
                 var lugar =  Phaser.Math.Between(50, 400);
@@ -134,30 +134,27 @@ class nivel2 extends Phaser.Scene{
                     case 3:
                         if(this.cont3.text < 5)
                         {
-                            if(Phaser.Math.Between(0,2) == 0)
-                            {
-                                this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
-                                this.maspapaya.body.setSize(45,45,0);
-                                this.maspapaya.body.setOffset(10,10);
-                                this.droppear = this.tweens.createTimeline();
-                                this.droppear.add({
-                                    targets: [this.maspapaya],
-                                    x: -100,
-                                    duration: 4000,
-                                });
-                                this.droppear.play();
-                            }
+                            this.maspapaya = this.drops.create(1250,lugar,'papaya').setScale(.7);
+                            this.maspapaya.body.setSize(45,45,0);
+                            this.maspapaya.body.setOffset(10,10);
+                            this.droppear = this.tweens.createTimeline();
+                            this.droppear.add({
+                                targets: [this.maspapaya],
+                                x: -100,
+                                duration: 4000,
+                            });
+                            this.droppear.play();
                         }
                         break;
                     default:
-                            this.asteroide = this.drops.create(1250,lugar,'asteroide').setScale(.2);
+                            this.asteroide = this.drops.create(1250,this.container.y,'asteroide').setScale(.2);
                             this.asteroide.body.setSize(200,200,0);
                             this.asteroide.body.setOffset(50,20);
                             this.droppear = this.tweens.createTimeline();
                             this.droppear.add({
                                 targets: [this.asteroide],
                                 x: -100,
-                                rotation:  -20 * Math.PI,
+                                rotation:  -10 * Math.PI,
                                 duration: 4000,
                             });
                             this.droppear.play();
@@ -168,6 +165,7 @@ class nivel2 extends Phaser.Scene{
             },
            loop:true
         });
+
 
     this.municion =  this.physics.add.group();
     this.municion2 = this.physics.add.group();
