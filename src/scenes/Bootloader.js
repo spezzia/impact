@@ -990,6 +990,8 @@ class Bootloader extends Phaser.Scene{
             
             if(potenciador.texture.key == "sandia")
             {
+                enemigo.setVelocity(0);
+                enemigo.setAcceleration(0);
                 potenciador.body.destroy();
                 potenciador.anims.play('destruccion',true);
                 potenciador.on('animationcomplete-destruccion', ()=>{
